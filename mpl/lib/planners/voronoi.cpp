@@ -66,7 +66,8 @@ vector<Segment> VoronoiPlanner::get_entities() {
 	return segments;
 }
 
-vector<Point> VoronoiPlanner::find_path(const Point& start, const Point& goal) {
+vector<Point> VoronoiPlanner::find_path(const Point& start,
+                                        const Point& goal) {
 	// auto dist = [](const Point& a, const Point& b){return abs(a.x-b.x) + abs(a.y-b.y);};
 	voronoi_diagram<double>::const_vertex_iterator it;
 
@@ -114,7 +115,8 @@ vector<Point> VoronoiPlanner::find_path(const Point& start, const Point& goal) {
 
 	// search the voronoi diagram for path between in and out
 	vector<Point> p1 = vg->find_path(in, out);
-	std::cout << "Length of path found in VoronoiGraph: " << p1.size() << std::endl;
+	std::cout << "Length of path found in VoronoiGraph: " << p1.size() <<
+	          std::endl;
 	vector<Point> p2 = {out, goal}; //p.find_path(out, goal);
 
 	// output the complete path as vector<Point>

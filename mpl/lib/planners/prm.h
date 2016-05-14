@@ -2,10 +2,10 @@
 #define MPL_PLANNER_PRM_H
 
 namespace mplib {
-	class PRMPlanner {
-	public:
-		PRMPlanner();
-	private:
-	};
+class PRMPlanner {
+public:
+	PRMPlanner();
+private:
+};
 }
 #endif

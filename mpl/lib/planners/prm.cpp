@@ -1,8 +1,8 @@
 #include "prm.h"
 
 namespace mplib {
-	PRMPlanner::PRMPlanner() {
+PRMPlanner::PRMPlanner() {
 
-	}
+}
 
 }

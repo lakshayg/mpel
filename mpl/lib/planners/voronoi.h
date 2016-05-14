@@ -13,23 +13,23 @@ using boost::polygon::voronoi_builder;
 using boost::polygon::voronoi_diagram;
 
 namespace mplib {
-	class VoronoiPlanner {
-	public:
-		VoronoiPlanner(Workspace& ws, double eps = 10);
-		void update();
-		std::vector<cv::Point> find_path(const cv::Point& a, const cv::Point& b);
+class VoronoiPlanner {
+public:
+	VoronoiPlanner(Workspace& ws, double eps = 10);
+	void update();
+	std::vector<cv::Point> find_path(const cv::Point& a, const cv::Point& b);
 
-	private:
-		double EPS; // parameter for approximating obstacles as
-		            // polygons when constructing voronoi roadmap
-		Workspace *ws;
-		voronoi_diagram<double> vd;
+private:
+	double EPS; // parameter for approximating obstacles as
+	// polygons when constructing voronoi roadmap
+	Workspace *ws;
+	voronoi_diagram<double> vd;
 
-		std::unique_ptr<VoronoiGraph> vg;
+	std::unique_ptr<VoronoiGraph> vg;
 
-		std::vector<Segment> get_entities();
-		void construct_roadmap();
-	};
+	std::vector<Segment> get_entities();
+	void construct_roadmap();
+};
 }
 
 #endif
