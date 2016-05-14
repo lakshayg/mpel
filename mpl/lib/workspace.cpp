@@ -80,7 +80,8 @@ namespace mplib {
 	}
 
 	bool Workspace::collision(const cv::Point& a) {
-		return bitmap.at<uchar>(a) == 0;
+    cv::Rect r(cv::Point(0,0),bitmap.size());
+		return (r.contains(a)) && (bitmap.at<uchar>(a) == 0);
 	}
 
 	void Workspace::clear() {
