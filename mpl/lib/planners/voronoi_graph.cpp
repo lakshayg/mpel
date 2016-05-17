@@ -94,6 +94,10 @@ VoronoiGraph::VoronoiGraph(Workspace *ws, const diagram_t& vd) {
 			e.second = tmp->second;
 		}
 
+		// draw the edge
+		std::vector<cv::Point> v = {p0, p1};
+		ws->draw(v, cv::Scalar::all(128), 2);
+
 		edges.push_back(e);
 		cv::Point pt = p0 - p1;
 		weights.push_back(sqrt(pt.x * pt.x + pt.y * pt.y));

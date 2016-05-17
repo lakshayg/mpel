@@ -78,14 +78,17 @@ vector<Point> VoronoiPlanner::find_path(const Point& start,
 	// int in_idx, out_idx;
 	double in_d = 1e10, out_d = 1e10;
 
+	// draw voronoi vertices
+	for (auto& p : vd.vertices()) {
+		Point pt = Point((int) p.x(), (int) p.y());
+		ws->draw(pt, 2, Scalar::all(150) );
+	}
+
 	for (size_t i = 0; i < vd.vertices().size(); i++) {
 		auto it = &vd.vertices()[i];
 		Point pt = Point((int) it->x(), (int) it->y());
-		ws->draw(pt);
 
-		// cout << "Voronoi vertex: " << pt << endl;
 		if (ws->collision(pt)) {
-			// cout << "Collision!!!" << endl;
 			continue;
 		}
 
@@ -115,8 +118,6 @@ vector<Point> VoronoiPlanner::find_path(const Point& start,
 
 	// search the voronoi diagram for path between in and out
 	vector<Point> p1 = vg->find_path(in, out);
-	std::cout << "Length of path found in VoronoiGraph: " << p1.size() <<
-	          std::endl;
 	vector<Point> p2 = {out, goal}; //p.find_path(out, goal);
 
 	// output the complete path as vector<Point>
