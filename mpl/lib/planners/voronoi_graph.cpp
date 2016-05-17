@@ -57,6 +57,7 @@ VoronoiGraph::VoronoiGraph(Workspace *ws, const diagram_t& vd) {
 	nedge = 0;
 	for (auto& v_edge : vd.edges()) {
 		if (v_edge.is_infinite()) continue;
+		if (not v_edge.is_primary()) continue;
 
 		cv::Point p0((int) v_edge.vertex0()->x(), (int) v_edge.vertex0()->y());
 		cv::Point p1((int) v_edge.vertex1()->x(), (int) v_edge.vertex1()->y());
