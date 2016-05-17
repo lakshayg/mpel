@@ -79,14 +79,11 @@ vector<Point> VoronoiPlanner::find_path(const Point& start,
 	double in_d = 1e10, out_d = 1e10;
 
 	// draw voronoi vertices
-	for (auto& p : vd.vertices()) {
-		Point pt = Point((int) p.x(), (int) p.y());
+	for (auto& pt : vg->vertices) {
 		ws->draw(pt, 2, Scalar::all(150) );
 	}
 
-	for (size_t i = 0; i < vd.vertices().size(); i++) {
-		auto it = &vd.vertices()[i];
-		Point pt = Point((int) it->x(), (int) it->y());
+	for (auto& pt : vg->vertices) {
 
 		if (ws->collision(pt)) {
 			continue;

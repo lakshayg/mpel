@@ -34,17 +34,17 @@ public:
 	void print_graph(std::string filename);
 	std::vector<cv::Point> find_path(const cv::Point&, const cv::Point&);
 
+	// for constructing bgl graph
+	std::vector<cv::Point> vertices;
+	std::vector<edge> edges;
+	std::vector<double> weights;
+
 private:
 	int nvertex, nedge;
 
 	// actual bgl graph
 	WeightMap weightmap;
 	mygraph_t boost_graph;
-
-	// for constructing bgl graph
-	std::vector<cv::Point> vertices;
-	std::vector<edge> edges;
-	std::vector<double> weights;
 
 	unordered_map<cv::Point,vertex,myhash> vdesc;
 };
