@@ -4,3 +4,5 @@
 build/**
 *.orig
 .vscode/**
+user/*.cpp
+
