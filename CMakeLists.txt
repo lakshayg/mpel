@@ -13,3 +13,7 @@ target_include_directories (mpl PUBLIC include lib)
 
 # add demo files
 add_subdirectory(demo)
+
+# compile user files
+add_subdirectory(user)
+
