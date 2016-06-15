@@ -57,5 +57,14 @@ void View::add_layer(PathRef path) {
 	}
 	update();
 }
+void View::add_layer(GraphRef g) {
+	for (size_t i = 0; i < g.num_vertices(); ++i) {
+		for (size_t j = 0; j < i; ++j) {
+			if (g.weight(i,j) > 0)
+				line(_img, g.vertex(i), g.vertex(j), COLOR_GRAY, 2);
+		}
+	}
+	update();
+}
 
 }

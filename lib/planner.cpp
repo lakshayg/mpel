@@ -13,6 +13,10 @@ namespace mpel {
 		_g = _pc.graph_builder(_ws.map);
 	}
 
+	GraphRef Planner::roadmap() const {
+		return _g;
+	}
+
 	Path Planner::solve(ProblemDefinition pdef) {
 		// find point closest to given points in graph
 		Point in, out;

@@ -35,6 +35,7 @@ int main(int argc, char **argv) {
 	View v;
 	v.add_layer(ws.map);
 	v.add_layer(pdef);
+	v.add_layer(p.roadmap());
 	v.add_layer(path);
 	View::stay();
 

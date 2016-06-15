@@ -8,6 +8,7 @@
 #define COLOR_RED cv::Scalar(0,0,255)
 #define COLOR_DARK_GREEN cv::Scalar(0,100,0)
 #define COLOR_PINK cv::Scalar(211,0,246)
+#define COLOR_GRAY cv::Scalar(150,150,150)
 
 #include "types.hpp"
 #include <string>
@@ -25,6 +26,7 @@ public:
 	void add_layer(PointRef pt);
 	void add_layer(ProblemDefinition pdef);
 	void add_layer(PathRef path);	
+	void add_layer(GraphRef graph);
 	static void stay(char key = ' ');
 
 private:
