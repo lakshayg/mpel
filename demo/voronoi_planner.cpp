@@ -32,6 +32,12 @@ int main(int argc, char **argv) {
 		printf("[%d  %d]  ", it->x, it->y);
 	std::cout << std::endl;
 
+	View v;
+	v.add_layer(ws.map);
+	v.add_layer(pdef);
+	v.add_layer(path);
+	View::stay();
+
 	return 0;
 }
 

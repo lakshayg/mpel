@@ -4,5 +4,6 @@
 #include "types.hpp"
 #include "common.hpp"
 #include "planner.hpp"
+#include "viz.hpp"
 
 #endif
