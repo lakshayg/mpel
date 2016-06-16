@@ -51,6 +51,7 @@ void View::add_layer(ProblemDefinition pdef) {
 	update();
 }
 void View::add_layer(PathRef path) {
+	if (path.size() == 0) return;
 	for (size_t i = 0; i < path.size() - 1; ++i) {
 		line(_img, path[i], path[i + 1], COLOR_GREEN, 2);
 		circle(_img, path[i], 2, COLOR_DARK_GREEN, -1);

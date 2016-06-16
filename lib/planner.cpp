@@ -19,6 +19,8 @@ namespace mpel {
 
 	Path Planner::solve(ProblemDefinition pdef) {
 		// find point closest to given points in graph
+		if (is_collision(_ws.map, pdef.start)) return Path();
+		if (is_collision(_ws.map, pdef.goal)) return Path();
 		Point in, out;
 		double in_dist  = std::numeric_limits<double>::max();
 		double out_dist = std::numeric_limits<double>::max();
@@ -29,10 +31,11 @@ namespace mpel {
 			if (d_out < out_dist) {out = *it; out_dist = d_out; }
 		}
 
-		Path p;
-		p = _pc.graph_search(_g, in, out);
-		//p.push_front(pdef.start);
-		//p.push_back(pdef.goal);
+		Path p, p1 = _pc.graph_search(_g, in, out);
+		p.reserve(p1.size() + 2);
+		p.push_back(pdef.start);
+		p.insert(p.end(), p1.begin(), p1.end());
+		p.push_back(pdef.goal);
 		return p;
 	}
 	

@@ -23,7 +23,7 @@ int main(int argc, char **argv) {
 	p.load_workspace(ws);
 
 	ProblemDefinition pdef;
-	pdef.start = Point(34, 23);
+	pdef.start = Point(50, 50);
 	pdef.goal = Point(340, 213);
 
 	Path path = p.solve(pdef);
