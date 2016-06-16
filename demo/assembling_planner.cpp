@@ -13,7 +13,7 @@ int main(int argc, char **argv) {
 
 	Planner::Config pc;
 	pc.graph_builder = voronoi_graph_builder();
-	pc.graph_search = dijkstra_search();
+	pc.graph_search = breadth_first_search();
 	pc.interpolator = default_interpolator();
 
 	Workspace ws;
@@ -27,10 +27,6 @@ int main(int argc, char **argv) {
 	pdef.goal = Point(340, 213);
 
 	Path path = p.solve(pdef);
-	std::cout << "Length of path: " << path.size() << std::endl;
-	for (auto it = path.begin(); it != path.end(); ++it)
-		printf("[%d  %d]  ", it->x, it->y);
-	std::cout << std::endl;
 
 	View v;
 	v.add_layer(ws.map);
