@@ -5,7 +5,7 @@
 namespace mpel {
 
 	default_interpolator::default_interpolator() {}
-	Path default_interpolator::operator()(PathRef path) {
+	Path default_interpolator::operator()(MapRef map, PathRef path) {
 		Path p(path.begin(), path.end());
 		return p;
 	}
@@ -14,7 +14,7 @@ namespace mpel {
 	potential_field_interpolator::potential_field_interpolator() {
 		throw UnimplementedException();
 	}
-	Path potential_field_interpolator::operator()(PathRef path) {
+	Path potential_field_interpolator::operator()(MapRef map, PathRef path) {
 		Path p(path.begin(), path.end());
 		return p;
 	}

@@ -69,12 +69,12 @@ struct depth_first_search {
 // Interpolators
 struct default_interpolator {
 	default_interpolator();
-	Path operator()(PathRef path);
+	Path operator()(MapRef map, PathRef path);
 };
 
 struct potential_field_interpolator {
 	potential_field_interpolator();
-	Path operator()(PathRef path);
+	Path operator()(MapRef map, PathRef path);
 };
 
 // Planner configs

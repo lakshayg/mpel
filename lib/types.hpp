@@ -64,7 +64,7 @@ typedef const Graph& GraphRef;
 typedef std::function<double(PointRef, PointRef)> Metric;
 typedef std::function<Graph(MapRef)> GraphBuilderFn;
 typedef std::function<Path(GraphRef, PointRef, PointRef)> GraphSearchFn;
-typedef std::function<Path(PathRef)> InterpolatorFn;
+typedef std::function<Path(MapRef, PathRef)> InterpolatorFn;
 
 
 struct Workspace {
