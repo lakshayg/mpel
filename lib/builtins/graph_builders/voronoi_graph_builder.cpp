@@ -58,33 +58,33 @@ struct segment_traits<Segment> {
 
 namespace mpel {
 
-	voronoi_graph_builder::voronoi_graph_builder(double eps) : _eps(eps) {}
+voronoi_graph_builder::voronoi_graph_builder(double eps) : _eps(eps) {}
 
-	Graph voronoi_graph_builder::operator()(MapRef map) {
-		// build voronoi diagram
-		voronoi_diagram<double> vd;
-		std::vector<Segment> segments = get_map_segments(map, _eps);
-		construct_voronoi(segments.begin(), segments.end(), &vd);
+Graph voronoi_graph_builder::operator()(MapRef map) {
+	// build voronoi diagram
+	voronoi_diagram<double> vd;
+	std::vector<Segment> segments = get_map_segments(map, _eps);
+	construct_voronoi(segments.begin(), segments.end(), &vd);
 
-		// build graph from diagram
-		Graph g;
-		for (auto& e : vd.edges()) {
-			if (e.is_infinite()) continue;
-			if (not e.is_primary()) continue;
+	// build graph from diagram
+	Graph g;
+	for (auto& e : vd.edges()) {
+		if (e.is_infinite()) continue;
+		if (not e.is_primary()) continue;
 
-			Point p0(e.vertex0()->x(), e.vertex0()->y());
-			Point p1(e.vertex1()->x(), e.vertex1()->y());
-			bool flag = false;
-			for (double k = 0; k <= 1; k += 0.2) {
-				if (is_collision(map, k * p0 + (1 - k) * p1)) {
-					flag = true;
-					break;
-				}
+		Point p0(e.vertex0()->x(), e.vertex0()->y());
+		Point p1(e.vertex1()->x(), e.vertex1()->y());
+		bool flag = false;
+		for (double k = 0; k <= 1; k += 0.2) {
+			if (is_collision(map, k * p0 + (1 - k) * p1)) {
+				flag = true;
+				break;
 			}
-			if (flag) continue;
-			g.add_edge(p0, p1, distance(p0, p1));
 		}
-		return g;
+		if (flag) continue;
+		g.add_edge(p0, p1, distance(p0, p1));
 	}
+	return g;
+}
 }
 
