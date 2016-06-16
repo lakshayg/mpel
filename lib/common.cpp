@@ -3,6 +3,7 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
+#include <iostream>
 
 namespace mpel {
 
@@ -14,7 +15,24 @@ double distance(PointRef a, PointRef b) {
 	return sqrt(dx * dx + dy * dy);
 }
 
-bool is_collision(MapRef map, PointRef pt) { return map.at<uchar>(pt) < 100; }
+bool is_collision(MapRef map, PointRef pt) { 
+	if (pt.x >= map.cols or pt.x < 0) return true;
+	if (pt.y >= map.rows or pt.y < 0) return true;
+	return map.at<uchar>(pt) < 250;
+}
+
+bool is_collision(MapRef map, SegmentRef s) {
+	if (is_collision(map, s.p0)) return true;
+	if (is_collision(map, s.p1)) return true;
+	double len = distance(s.p0, s.p1);
+	double dx = (s.p1.x - s.p0.x) / len;
+	double dy = (s.p1.y - s.p0.y) / len;
+	for (double r = 0; r <= len; r += 4) {
+		Point p(s.p0.x+dx*r, s.p0.y+dy*r);
+		if (is_collision(map, p)) return true;
+	}
+	return false;
+}
 
 
 std::vector<Segment> get_map_segments(MapRef map, double eps) {

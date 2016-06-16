@@ -23,6 +23,7 @@ struct Segment {
 	Point p0, p1;
 	Segment(PointRef a, PointRef b) : p0(a), p1(b) {}
 };
+typedef const Segment& SegmentRef;
 
 typedef std::vector<Point> Path;
 typedef const Path& PathRef;

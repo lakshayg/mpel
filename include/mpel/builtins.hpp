@@ -28,6 +28,13 @@ private:
 	double _eps;
 };
 
+struct probabilistic_graph_builder {
+	probabilistic_graph_builder(size_t n = 0, size_t k = 3);
+	Graph operator()(MapRef map);
+private:
+	size_t _n; // number of nodes in the graph 0 => automatically determined
+};
+
 // Grpah searches
 struct default_search { // does nothing meaningful (only for debugging)
 	default_search();
