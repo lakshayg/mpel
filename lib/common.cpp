@@ -7,7 +7,11 @@
 
 namespace mpel {
 
-Map load_map_from_image(std::string filename) {	return cv::imread(filename, 0); }
+Map load_map_from_image(std::string filename) {
+	cv::Mat im = cv::imread(filename, 0);
+	cv::threshold(im, im, 125, 255, cv::THRESH_BINARY);
+	return im;
+}
 
 double distance(PointRef a, PointRef b) {
 	double dx = a.x - b.x;
@@ -15,7 +19,7 @@ double distance(PointRef a, PointRef b) {
 	return sqrt(dx * dx + dy * dy);
 }
 
-bool is_collision(MapRef map, PointRef pt) { 
+bool is_collision(MapRef map, PointRef pt) {
 	if (pt.x >= map.cols or pt.x < 0) return true;
 	if (pt.y >= map.rows or pt.y < 0) return true;
 	return map.at<uchar>(pt) < 250;
@@ -28,7 +32,7 @@ bool is_collision(MapRef map, SegmentRef s) {
 	double dx = (s.p1.x - s.p0.x) / len;
 	double dy = (s.p1.y - s.p0.y) / len;
 	for (double r = 0; r <= len; r += 4) {
-		Point p(s.p0.x+dx*r, s.p0.y+dy*r);
+		Point p(s.p0.x + dx * r, s.p0.y + dy * r);
 		if (is_collision(map, p)) return true;
 	}
 	return false;
@@ -67,5 +71,22 @@ std::vector<Segment> get_map_segments(MapRef map, double eps) {
 	return segments;
 }
 
-
+// mark point in a workspace
+Point _mark_point::marked_point = Point(-1,-1);
+Point _mark_point::operator()(const Workspace& ws) {
+	std::string name = "Mark Point";
+	cv::namedWindow(name);
+	cv::imshow(name, ws.map);
+	marked_point = Point(-1, -1);
+	cv::setMouseCallback(name, callback, NULL);
+	while (marked_point == Point(-1, -1)) cv::waitKey(10);
+	cv::setMouseCallback(name, NULL, NULL);
+	cv::destroyWindow(name);
+	return marked_point;
+}
+void _mark_point::callback(int event, int x, int y, int flags, void * userdata) {
+	if (event == cv::EVENT_LBUTTONDOWN) {
+		marked_point = Point(x, y);
+	}
+}
 }
