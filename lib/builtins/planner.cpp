@@ -5,8 +5,8 @@
 namespace mpel {
 
 default_planner_config::default_planner_config() {
-	graph_builder = voronoi_graph_builder();
-	graph_search = dijkstra_search();
+	graph_builder = default_graph_builder();
+	graph_search = default_search();
 	interpolator = default_interpolator();
 }
 

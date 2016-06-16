@@ -21,11 +21,16 @@ struct chebychev_distance {
 
 
 // Graph builders
+struct default_graph_builder {
+	default_graph_builder();
+	Graph operator()(MapRef map);
+};
+
 struct voronoi_graph_builder {
 	voronoi_graph_builder(double eps = 10);
 	Graph operator()(MapRef map);
 private:
-	double _eps;
+	double _eps; // parameter for approximating the workspace
 };
 
 struct probabilistic_graph_builder {
