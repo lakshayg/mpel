@@ -74,4 +74,7 @@ void View::add_layer(const Planner& p) {
 	update();
 }
 
+void View::save(std::string filename) {
+	cv::imwrite(filename, _img);
+}
 }

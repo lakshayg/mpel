@@ -30,6 +30,8 @@ public:
 	void add_layer(GraphRef graph);
 	void add_layer(const Planner& p);
 
+	void save(std::string filename = "view.png");
+	
 	static void stay(char key = ' ');
 
 private:

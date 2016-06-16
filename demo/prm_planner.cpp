@@ -33,5 +33,7 @@ int main(int argc, char **argv) {
 	v.add_layer(path);
 	View::stay();
 
+	v.save();
+
 	return 0;
 }
