@@ -2,6 +2,7 @@
 #define MPEL_BUILTINS_H
 
 #include "types.hpp"
+#include "planner.hpp"
 
 namespace mpel {
 
@@ -63,5 +64,11 @@ struct potential_field_interpolator {
 	potential_field_interpolator();
 	Path operator()(PathRef path);
 };
+
+// Planner configs
+struct voronoi_planner_config : Planner::Config {
+	voronoi_planner_config();
+};
+
 }
 #endif
