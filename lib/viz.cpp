@@ -1,5 +1,6 @@
 #include "viz.hpp"
 #include "types.hpp"
+#include "planner.hpp"
 #include <string>
 
 namespace mpel {
@@ -65,6 +66,11 @@ void View::add_layer(GraphRef g) {
 				line(_img, g.vertex(i), g.vertex(j), COLOR_GRAY, 2);
 		}
 	}
+	update();
+}
+void View::add_layer(const Planner& p) {
+	add_layer(p.map());
+	add_layer(p.roadmap());
 	update();
 }
 

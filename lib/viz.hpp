@@ -10,6 +10,7 @@
 #define COLOR_PINK cv::Scalar(211,0,246)
 #define COLOR_GRAY cv::Scalar(150,150,150)
 
+#include "planner.hpp"
 #include "types.hpp"
 #include <string>
 
@@ -27,6 +28,8 @@ public:
 	void add_layer(ProblemDefinition pdef);
 	void add_layer(PathRef path);	
 	void add_layer(GraphRef graph);
+	void add_layer(const Planner& p);
+
 	static void stay(char key = ' ');
 
 private:

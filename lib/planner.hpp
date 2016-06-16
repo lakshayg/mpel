@@ -22,6 +22,8 @@ public:
 	Path solve(ProblemDefinition pdef);
 
 	GraphRef roadmap() const;
+	MapRef map() const;
+	
 private:
 
 	Config _pc;

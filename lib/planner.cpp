@@ -17,6 +17,10 @@ namespace mpel {
 		return _g;
 	}
 
+	MapRef Planner::map() const {
+		return _ws.map;
+	}
+	
 	Path Planner::solve(ProblemDefinition pdef) {
 		// find point closest to given points in graph
 		if (is_collision(_ws.map, pdef.start)) return Path();
