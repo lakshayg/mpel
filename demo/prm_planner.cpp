@@ -6,7 +6,7 @@ using namespace mpel;
 
 int main(int argc, char **argv) {
 
-	if (false and argc < 2) {
+	if (argc < 2) {
 		std::cerr << "Demo requires a map image" << std::endl;
 		return -1;
 	}
@@ -18,7 +18,7 @@ int main(int argc, char **argv) {
 
 	Planner p(pc);
 	Workspace ws;
-	ws.map = load_map_from_image("/home/lakshayg/rcon-motion-planning/workspace/004.bmp");
+	ws.map = load_map_from_image(argv[1]);
 	p.load_workspace(ws);
 
 	ProblemDefinition pdef;
