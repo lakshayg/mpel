@@ -73,9 +73,16 @@ struct potential_field_interpolator {
 };
 
 // Planner configs
+struct default_planner_config : Planner::Config {
+	default_planner_config();
+};
+
 struct voronoi_planner_config : Planner::Config {
 	voronoi_planner_config();
 };
 
+struct PRM_planner_config : Planner::Config {
+	PRM_planner_config();
+};
 }
 #endif
