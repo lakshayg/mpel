@@ -38,22 +38,31 @@ bool is_collision(MapRef map, SegmentRef s) {
 	return false;
 }
 
-Path subdivide_path(PathRef path, double len) {
-	if (path.size() == 0) return path;
-	Path p; p.push_back(path[0]);
-	size_t i = 0;
-	while (i < path.size()-1) {
-		double l1 = distance(p.back(), path[i+1]);
-		if (l1 <= len) {
-			p.push_back(path[i+1]);
-			i++;
-		} else {
-			double dx = (path[i+1].x - p.back().x)/l1;
-			double dy = (path[i+1].y - p.back().y)/l1;
-			p.push_back(p.back() + Point(dx*len, dy*len));
+Path div(PathRef path) {
+	Path p;
+	for (size_t i = 0; i < path.size() - 1; ++i) {
+		double len = distance(path[i], path[i+1]);
+		double dx = (path[i+1].x - path[i].x)/len;
+		double dy = (path[i+1].y - path[i].y)/len;
+		double t = 0.0;
+		while (t <= len) {
+			p.push_back(path[i] + Point(dx*t,dy*t));
+			t = t + 1.;
 		}
 	}
+	p.push_back(path.back());
 	return p;
+}
+Path subdivide_path(PathRef path, double len) {
+	Path p = div(path);
+	Path ans; ans.push_back(p.front());
+	for (auto pt : p) {
+		if (distance(pt, ans.back()) > len)
+			ans.push_back(pt);
+	}
+	if (ans.back() != path.back())
+		ans.push_back(path.back());
+	return ans;
 }
 
 std::vector<Segment> get_map_segments(MapRef map, double eps) {
