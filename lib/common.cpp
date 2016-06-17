@@ -38,6 +38,23 @@ bool is_collision(MapRef map, SegmentRef s) {
 	return false;
 }
 
+Path subdivide_path(PathRef path, double len) {
+	if (path.size() == 0) return path;
+	Path p; p.push_back(path[0]);
+	size_t i = 0;
+	while (i < path.size()-1) {
+		double l1 = distance(p.back(), path[i+1]);
+		if (l1 <= len) {
+			p.push_back(path[i+1]);
+			i++;
+		} else {
+			double dx = (path[i+1].x - p.back().x)/l1;
+			double dy = (path[i+1].y - p.back().y)/l1;
+			p.push_back(p.back() + Point(dx*len, dy*len));
+		}
+	}
+	return p;
+}
 
 std::vector<Segment> get_map_segments(MapRef map, double eps) {
 	// eps is for approximating contours

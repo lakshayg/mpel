@@ -21,6 +21,8 @@ bool is_collision(MapRef map, SegmentRef s);
 
 std::vector<Segment> get_map_segments(MapRef map, double eps = 10);
 
+Path subdivide_path(PathRef path, double len = 40);
+
 Point mark_point(const Workspace& ws);
 }
 #endif
