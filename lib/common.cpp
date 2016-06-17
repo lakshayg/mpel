@@ -72,8 +72,13 @@ std::vector<Segment> get_map_segments(MapRef map, double eps) {
 }
 
 // mark point in a workspace
-Point _mark_point::marked_point = Point(-1,-1);
-Point _mark_point::operator()(const Workspace& ws) {
+Point marked_point = Point(-1,-1);
+void callback(int event, int x, int y, int flags, void * userdata) {
+	if (event == cv::EVENT_LBUTTONDOWN) {
+		marked_point = Point(x, y);
+	}
+}
+Point mark_point(const Workspace& ws) {
 	std::string name = "Mark Point";
 	cv::namedWindow(name);
 	cv::imshow(name, ws.map);
@@ -83,10 +88,5 @@ Point _mark_point::operator()(const Workspace& ws) {
 	cv::setMouseCallback(name, NULL, NULL);
 	cv::destroyWindow(name);
 	return marked_point;
-}
-void _mark_point::callback(int event, int x, int y, int flags, void * userdata) {
-	if (event == cv::EVENT_LBUTTONDOWN) {
-		marked_point = Point(x, y);
-	}
 }
 }
