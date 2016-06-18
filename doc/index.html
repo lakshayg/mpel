@@ -139,11 +139,104 @@
 suggested that you go through the <a href="../primer/">Primer</a> before
 reading the API Reference. If you are looking for tutorials, they
 are available <a href="../tut/">here</a>.</p>
+<p>MPEL utilizes <a href="http://opencv.org/">OpenCV</a> for a lot a operations in
+the background. Several datatypes are borrowed directly from OpenCV.
+In such cases the code provided if merely a representation of the
+actual implementation.</p>
 <h2 id="mpelcorehpp"><strong><code>mpel/core.hpp</code></strong></h2>
 <p>This header contains everything which is required for implementing
 one's own planning algorithm. The header is further divided into
 related sections</p>
 <h3 id="datatypes">Datatypes</h3>
+<h4 id="point">Point</h4>
+<pre><code>struct Point {
+    int x, y;  // NOTE: Only integer coordinates are allowed
+    Point();
+    Point(int X, int Y) : x(X), y(Y) {}
+};
+typedef const Point&amp; PointRef;
+</code></pre>
+
+<p>The <code>Point</code> class supports several operations like addition,
+subtraction and multiplication with scalar.</p>
+<h4 id="segment">Segment</h4>
+<pre><code>struct Segment {
+    Point p0, p1;
+    Segment(PointRef a, PointRef b) : p0(a), p1(b) {}
+};
+typedef const Segment&amp; SegmentRef;
+</code></pre>
+
+<p>The <code>Segment</code> datatype is a struct containing two points.</p>
+<h4 id="path">Path</h4>
+<pre><code>typedef std::vector&lt;Point&gt; Path;
+typedef const Path&amp; PathRef;
+</code></pre>
+
+<p>The <code>Path</code> datatype is implemented as a vector of points and therefore
+supports all the operations allowed on a <code>std::vector</code>.</p>
+<h4 id="map">Map</h4>
+<pre><code>typedef cv::Mat Map;
+typedef const Map&amp; MapRef;
+</code></pre>
+
+<p>A <code>Map</code> is a 2D matrix which represents the workspace as an occupancy
+grid. Map supports the <code>clone()</code> operation which is required whenever
+a Map needs to be copied.</p>
+<h4 id="graph">Graph</h4>
+<pre><code>class Graph {
+public:
+    typedef size_t vertex_t;
+
+    Graph();
+    ~Graph();
+    void add_edge(Point pt1, Point pt2, double weight = 0);
+    size_t descriptor(PointRef pt) const;
+    size_t num_vertices() const;
+    Point vertex(size_t descriptor) const;
+    double weight(PointRef a, PointRef b) const;
+    double weight(size_t a, size_t b) const;
+    const std::vector&lt;Point&gt;&amp; vertex_list() const;
+private:
+    ...
+};
+typedef const Graph&amp; GraphRef;
+</code></pre>
+
+<p>The current implementation of <code>Graph</code> is an <em>incidence matrix</em>. It
+supports the following operations:</p>
+<ul>
+<li><code>add_edge(Point pt1, Point pt2, double weight = 0)</code> - Add a new edge
+in the graph. Two nodes can have only a single edge between them. A
+negative weight indicates that no edge is present.</li>
+<li><code>size_t descriptor(PointRef pt) const</code> - Every vertex is assigned a
+descriptor in the graph. This function returns the vertex descriptor.</li>
+<li><code>size_t num_vertices() const</code> - Returns the number of vertices in the graph.</li>
+<li><code>Point vertex(size_t descriptor) const</code> - Returns the vertex (Point)
+corresponding to the descriptor given as input</li>
+<li><code>double weight(PointRef a, PointRef b) const</code> - Returns the weight of
+edge given two vertices. A negative weight indicates that the verties
+are not connected.</li>
+<li><code>double weight(size_t a, size_t b) const</code> - Returns the weight of edge
+given two vertex descriptors.</li>
+<li><code>const std::vector&lt;Point&gt;&amp; vertex_list() const</code> - Returns the list of
+vertices present in the graph.</li>
+</ul>
+<h4 id="workspace">Workspace</h4>
+<pre><code>struct Workspace {
+    Map map;
+};
+</code></pre>
+
+<h4 id="problemdefinition">ProblemDefinition</h4>
+<pre><code>struct ProblemDefinition {
+    Point start;
+    Point goal;
+};
+</code></pre>
+
+<p>This datatype is used to specify the planning problem and pass it to
+the motion planner.</p>
 <h3 id="utility-functions">Utility Functions</h3>
 <h3 id="motion-planner">Motion Planner</h3>
 <h3 id="visualization">Visualization</h3>

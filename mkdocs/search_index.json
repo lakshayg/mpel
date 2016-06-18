@@ -57,12 +57,12 @@
         }, 
         {
             "location": "/doc/", 
-            "text": "API Reference\n\n\nThis section gives a detailed description of the API. It is strongly\nsuggested that you go through the \nPrimer\n before\nreading the API Reference. If you are looking for tutorials, they\nare available \nhere\n.\n\n\nmpel/core.hpp\n\n\nThis header contains everything which is required for implementing\none's own planning algorithm. The header is further divided into\nrelated sections\n\n\nDatatypes\n\n\nUtility Functions\n\n\nMotion Planner\n\n\nVisualization\n\n\nmpel/builtins.hpp\n\n\nThis header file contains definitions of all the pre-built components\nprovided with the library. The section is divided into related sections.\n\n\nGraph Builders\n\n\nGraph Searches\n\n\nInterpolators\n\n\nPlanner Configs", 
+            "text": "API Reference\n\n\nThis section gives a detailed description of the API. It is strongly\nsuggested that you go through the \nPrimer\n before\nreading the API Reference. If you are looking for tutorials, they\nare available \nhere\n.\n\n\nMPEL utilizes \nOpenCV\n for a lot a operations in\nthe background. Several datatypes are borrowed directly from OpenCV.\nIn such cases the code provided if merely a representation of the\nactual implementation.\n\n\nmpel/core.hpp\n\n\nThis header contains everything which is required for implementing\none's own planning algorithm. The header is further divided into\nrelated sections\n\n\nDatatypes\n\n\nPoint\n\n\nstruct Point {\n    int x, y;  // NOTE: Only integer coordinates are allowed\n    Point();\n    Point(int X, int Y) : x(X), y(Y) {}\n};\ntypedef const Point\n PointRef;\n\n\n\n\nThe \nPoint\n class supports several operations like addition,\nsubtraction and multiplication with scalar.\n\n\nSegment\n\n\nstruct Segment {\n    Point p0, p1;\n    Segment(PointRef a, PointRef b) : p0(a), p1(b) {}\n};\ntypedef const Segment\n SegmentRef;\n\n\n\n\nThe \nSegment\n datatype is a struct containing two points.\n\n\nPath\n\n\ntypedef std::vector\nPoint\n Path;\ntypedef const Path\n PathRef;\n\n\n\n\nThe \nPath\n datatype is implemented as a vector of points and therefore\nsupports all the operations allowed on a \nstd::vector\n.\n\n\nMap\n\n\ntypedef cv::Mat Map;\ntypedef const Map\n MapRef;\n\n\n\n\nA \nMap\n is a 2D matrix which represents the workspace as an occupancy\ngrid. Map supports the \nclone()\n operation which is required whenever\na Map needs to be copied.\n\n\nGraph\n\n\nclass Graph {\npublic:\n    typedef size_t vertex_t;\n\n    Graph();\n    ~Graph();\n    void add_edge(Point pt1, Point pt2, double weight = 0);\n    size_t descriptor(PointRef pt) const;\n    size_t num_vertices() const;\n    Point vertex(size_t descriptor) const;\n    double weight(PointRef a, PointRef b) const;\n    double weight(size_t a, size_t b) const;\n    const std::vector\nPoint\n vertex_list() const;\nprivate:\n    ...\n};\ntypedef const Graph\n GraphRef;\n\n\n\n\nThe current implementation of \nGraph\n is an \nincidence matrix\n. It\nsupports the following operations:\n\n\n\n\nadd_edge(Point pt1, Point pt2, double weight = 0)\n - Add a new edge\nin the graph. Two nodes can have only a single edge between them. A\nnegative weight indicates that no edge is present.\n\n\nsize_t descriptor(PointRef pt) const\n - Every vertex is assigned a\ndescriptor in the graph. This function returns the vertex descriptor.\n\n\nsize_t num_vertices() const\n - Returns the number of vertices in the graph.\n\n\nPoint vertex(size_t descriptor) const\n - Returns the vertex (Point)\ncorresponding to the descriptor given as input\n\n\ndouble weight(PointRef a, PointRef b) const\n - Returns the weight of\nedge given two vertices. A negative weight indicates that the verties\nare not connected.\n\n\ndouble weight(size_t a, size_t b) const\n - Returns the weight of edge\ngiven two vertex descriptors.\n\n\nconst std::vector\nPoint\n vertex_list() const\n - Returns the list of\nvertices present in the graph.\n\n\n\n\nWorkspace\n\n\nstruct Workspace {\n    Map map;\n};\n\n\n\n\nProblemDefinition\n\n\nstruct ProblemDefinition {\n    Point start;\n    Point goal;\n};\n\n\n\n\nThis datatype is used to specify the planning problem and pass it to\nthe motion planner.\n\n\nUtility Functions\n\n\nMotion Planner\n\n\nVisualization\n\n\nmpel/builtins.hpp\n\n\nThis header file contains definitions of all the pre-built components\nprovided with the library. The section is divided into related sections.\n\n\nGraph Builders\n\n\nGraph Searches\n\n\nInterpolators\n\n\nPlanner Configs", 
             "title": "API Reference"
         }, 
         {
             "location": "/doc/#api-reference", 
-            "text": "This section gives a detailed description of the API. It is strongly\nsuggested that you go through the  Primer  before\nreading the API Reference. If you are looking for tutorials, they\nare available  here .", 
+            "text": "This section gives a detailed description of the API. It is strongly\nsuggested that you go through the  Primer  before\nreading the API Reference. If you are looking for tutorials, they\nare available  here .  MPEL utilizes  OpenCV  for a lot a operations in\nthe background. Several datatypes are borrowed directly from OpenCV.\nIn such cases the code provided if merely a representation of the\nactual implementation.", 
             "title": "API Reference"
         }, 
         {
@@ -74,6 +74,41 @@
             "location": "/doc/#datatypes", 
             "text": "", 
             "title": "Datatypes"
+        }, 
+        {
+            "location": "/doc/#point", 
+            "text": "struct Point {\n    int x, y;  // NOTE: Only integer coordinates are allowed\n    Point();\n    Point(int X, int Y) : x(X), y(Y) {}\n};\ntypedef const Point  PointRef;  The  Point  class supports several operations like addition,\nsubtraction and multiplication with scalar.", 
+            "title": "Point"
+        }, 
+        {
+            "location": "/doc/#segment", 
+            "text": "struct Segment {\n    Point p0, p1;\n    Segment(PointRef a, PointRef b) : p0(a), p1(b) {}\n};\ntypedef const Segment  SegmentRef;  The  Segment  datatype is a struct containing two points.", 
+            "title": "Segment"
+        }, 
+        {
+            "location": "/doc/#path", 
+            "text": "typedef std::vector Point  Path;\ntypedef const Path  PathRef;  The  Path  datatype is implemented as a vector of points and therefore\nsupports all the operations allowed on a  std::vector .", 
+            "title": "Path"
+        }, 
+        {
+            "location": "/doc/#map", 
+            "text": "typedef cv::Mat Map;\ntypedef const Map  MapRef;  A  Map  is a 2D matrix which represents the workspace as an occupancy\ngrid. Map supports the  clone()  operation which is required whenever\na Map needs to be copied.", 
+            "title": "Map"
+        }, 
+        {
+            "location": "/doc/#graph", 
+            "text": "class Graph {\npublic:\n    typedef size_t vertex_t;\n\n    Graph();\n    ~Graph();\n    void add_edge(Point pt1, Point pt2, double weight = 0);\n    size_t descriptor(PointRef pt) const;\n    size_t num_vertices() const;\n    Point vertex(size_t descriptor) const;\n    double weight(PointRef a, PointRef b) const;\n    double weight(size_t a, size_t b) const;\n    const std::vector Point  vertex_list() const;\nprivate:\n    ...\n};\ntypedef const Graph  GraphRef;  The current implementation of  Graph  is an  incidence matrix . It\nsupports the following operations:   add_edge(Point pt1, Point pt2, double weight = 0)  - Add a new edge\nin the graph. Two nodes can have only a single edge between them. A\nnegative weight indicates that no edge is present.  size_t descriptor(PointRef pt) const  - Every vertex is assigned a\ndescriptor in the graph. This function returns the vertex descriptor.  size_t num_vertices() const  - Returns the number of vertices in the graph.  Point vertex(size_t descriptor) const  - Returns the vertex (Point)\ncorresponding to the descriptor given as input  double weight(PointRef a, PointRef b) const  - Returns the weight of\nedge given two vertices. A negative weight indicates that the verties\nare not connected.  double weight(size_t a, size_t b) const  - Returns the weight of edge\ngiven two vertex descriptors.  const std::vector Point  vertex_list() const  - Returns the list of\nvertices present in the graph.", 
+            "title": "Graph"
+        }, 
+        {
+            "location": "/doc/#workspace", 
+            "text": "struct Workspace {\n    Map map;\n};", 
+            "title": "Workspace"
+        }, 
+        {
+            "location": "/doc/#problemdefinition", 
+            "text": "struct ProblemDefinition {\n    Point start;\n    Point goal;\n};  This datatype is used to specify the planning problem and pass it to\nthe motion planner.", 
+            "title": "ProblemDefinition"
         }, 
         {
             "location": "/doc/#utility-functions", 
