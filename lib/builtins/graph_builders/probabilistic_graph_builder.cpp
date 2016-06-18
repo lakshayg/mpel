@@ -7,7 +7,7 @@
 
 namespace mpel {
 
-probabilistic_graph_builder::probabilistic_graph_builder(size_t n, size_t k) : _n(n) {}
+probabilistic_graph_builder::probabilistic_graph_builder(size_t n) : _n(n) {}
 Graph probabilistic_graph_builder::operator()(MapRef map) {
 	// determine number of nodes
 	size_t num = (_n > 0 ? _n : (map.rows * map.cols) / (50*50));

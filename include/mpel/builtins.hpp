@@ -34,7 +34,7 @@ private:
 };
 
 struct probabilistic_graph_builder {
-	probabilistic_graph_builder(size_t n = 0, size_t k = 3);
+	probabilistic_graph_builder(size_t n = 0);
 	Graph operator()(MapRef map);
 private:
 	size_t _n; // number of nodes in the graph 0 => automatically determined
@@ -73,8 +73,10 @@ struct default_interpolator {
 };
 
 struct potential_field_interpolator {
-	potential_field_interpolator();
+	potential_field_interpolator(double eps = 10);
 	Path operator()(MapRef map, PathRef path);
+private:
+	double _eps;
 };
 
 // Planner configs
