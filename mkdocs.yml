@@ -1,0 +1,10 @@
+site_name: MPEL
+pages:
+- Home: index.md
+- Primer: primer.md
+- Documentation:
+    - 'API Reference': doc.md
+    - 'Tutorials': tut.md
+- Troubleshooting: trouble.md
+- Contact Us: contact.md
+theme: united
