@@ -2,12 +2,12 @@
     "docs": [
         {
             "location": "/", 
-            "text": "Welcome to MPEL\n\n\nMPEL (Motion Planning and Experimentation Library) is a library\nwritten in C++ for solving motion planning problems and experimenting\nwith planning algorithms. It provides an intuitive syntax and several\ncomponents which can be used to build planning algorithms either by\n\"gluing\" the components together or from scratch. The library also\nprovides user the ability to easily visualize the results thus making\nit a great tool for use in classrooms. Browse through the\ndocumentation and tutorials to learn more about the library.\n\n\nAbout\n\n\nMPEL is being developed at the \nCenter for\nMechatronics\n at \nIIT\nKanpur\n. The project is supervised by \nDr. Bhaskar\nDasgupta\n. The source code for MPEL\nis hosted on \nGithub\n.", 
+            "text": "Welcome to MPEL\n\n\nMPEL (Motion Planning and Experimentation Library) is a library\nwritten in C++ for solving motion planning problems and experimenting\nwith planning algorithms. The library currently allows for planning only\nin a 2 dimensional workspace. It provides an intuitive syntax and several\ncomponents which can be used to build planning algorithms either by\n\"gluing\" the components together or from scratch. The library also\nprovides user the ability to easily visualize the results thus making\nit a great tool for use in classrooms. Browse through the\ndocumentation and tutorials to learn more about the library.\n\n\nAbout\n\n\nMPEL is being developed at the \nCenter for\nMechatronics\n at \nIIT\nKanpur\n. The project is supervised by \nDr. Bhaskar\nDasgupta\n. The source code for MPEL\nis hosted on \nGithub\n.", 
             "title": "Home"
         }, 
         {
             "location": "/#welcome-to-mpel", 
-            "text": "MPEL (Motion Planning and Experimentation Library) is a library\nwritten in C++ for solving motion planning problems and experimenting\nwith planning algorithms. It provides an intuitive syntax and several\ncomponents which can be used to build planning algorithms either by\n\"gluing\" the components together or from scratch. The library also\nprovides user the ability to easily visualize the results thus making\nit a great tool for use in classrooms. Browse through the\ndocumentation and tutorials to learn more about the library.", 
+            "text": "MPEL (Motion Planning and Experimentation Library) is a library\nwritten in C++ for solving motion planning problems and experimenting\nwith planning algorithms. The library currently allows for planning only\nin a 2 dimensional workspace. It provides an intuitive syntax and several\ncomponents which can be used to build planning algorithms either by\n\"gluing\" the components together or from scratch. The library also\nprovides user the ability to easily visualize the results thus making\nit a great tool for use in classrooms. Browse through the\ndocumentation and tutorials to learn more about the library.", 
             "title": "Welcome to MPEL"
         }, 
         {
@@ -17,28 +17,103 @@
         }, 
         {
             "location": "/primer/", 
-            "text": "Motion Planning Primer\n\n\nWhat is Motion Planning?\n\n\nMotion Planning Algorithms", 
+            "text": "Motion Planning Primer\n\n\nThis part of the website is meant to give the reader an intuitive\nfeel for the library. It is highly recommended that the reader goes\nthrough this section before proceeding to the API reference or the\ntutorials.\n\n\nThe library has been designed so that it is possible to use\npre-built planner as well as build new planners from scratch. The\nsyntax of the library seems natural once the user is familiar with\na few concepts and terminology.\n\n\nTerminology\n\n\nPoint\n: A point is any location in the 2D workspace.\n\n\nPath\n: A path is a sequence of points.\n\n\nMap\n: A map is a bitmap representing the occupied and free regions\nin the space where the path is to be planned.\n\n\nStructure of Motion Planning Algorithms\n\n\nWe propose that most motion planning algorithms can be represented\nas a combination of four basic components:\n\n\n\n\nCollision Checker\n\n\nGraph Builder\n\n\nGraph Search\n\n\nInterpolator\n\n\n\n\nCollision Checker\n\n\nA collision checker is used in algorithms whenever they need to\ncheck if a state of the robot causes collision with the workspace\nor not. This library currently supports planning in 2D environments\ntherefore there is only a single pre-built collision checker built\ninto all the motion planners and cannot be changed.\n\n\nGraph Builder\n\n\nA graph builder is an algorithm which takes a map of the workspace as\nthe input and generates a graph which is then used by the motion\nplanner for finding paths. For an algorithm which does not require\na graph but works directly on a map, it is possible to generate a\ngraph that contains every point of the map. Some graph builders are:\n\n\n\n\nVoronoi Roadmap Builder\n\n\nProbabilistic Roadmap Builder\n\n\nVisibility Roadmap\n\n\n\n\nGraph Search\n\n\nA graph search is an algorithm which returns the path between two\nnodes in a graph. This is one of the key player in determining the\nefficiency of the planning algorithm. Some graph searches are:\n\n\n\n\nDijkstra's Search\n\n\nBreadth First Search\n\n\nA* Search\n\n\n\n\nInterpolator\n\n\nAn interpolator is the algorithm which gives the path that the robot\nfollows after processing the path from graph search. The interpolator\ncan perform smoothing, simplifications etc on the input path. An\ninterpolator can also be used to implement planners that rely only\non local information of the workspace. Planning using potential\nfields can be thought of as an interpolator which works on the straight\nline path between start and end points.", 
             "title": "Primer"
         }, 
         {
             "location": "/primer/#motion-planning-primer", 
-            "text": "", 
+            "text": "This part of the website is meant to give the reader an intuitive\nfeel for the library. It is highly recommended that the reader goes\nthrough this section before proceeding to the API reference or the\ntutorials.  The library has been designed so that it is possible to use\npre-built planner as well as build new planners from scratch. The\nsyntax of the library seems natural once the user is familiar with\na few concepts and terminology.", 
             "title": "Motion Planning Primer"
         }, 
         {
-            "location": "/primer/#what-is-motion-planning", 
-            "text": "", 
-            "title": "What is Motion Planning?"
+            "location": "/primer/#terminology", 
+            "text": "Point : A point is any location in the 2D workspace.  Path : A path is a sequence of points.  Map : A map is a bitmap representing the occupied and free regions\nin the space where the path is to be planned.", 
+            "title": "Terminology"
         }, 
         {
-            "location": "/primer/#motion-planning-algorithms", 
-            "text": "", 
-            "title": "Motion Planning Algorithms"
+            "location": "/primer/#structure-of-motion-planning-algorithms", 
+            "text": "We propose that most motion planning algorithms can be represented\nas a combination of four basic components:   Collision Checker  Graph Builder  Graph Search  Interpolator", 
+            "title": "Structure of Motion Planning Algorithms"
+        }, 
+        {
+            "location": "/primer/#collision-checker", 
+            "text": "A collision checker is used in algorithms whenever they need to\ncheck if a state of the robot causes collision with the workspace\nor not. This library currently supports planning in 2D environments\ntherefore there is only a single pre-built collision checker built\ninto all the motion planners and cannot be changed.", 
+            "title": "Collision Checker"
+        }, 
+        {
+            "location": "/primer/#graph-builder", 
+            "text": "A graph builder is an algorithm which takes a map of the workspace as\nthe input and generates a graph which is then used by the motion\nplanner for finding paths. For an algorithm which does not require\na graph but works directly on a map, it is possible to generate a\ngraph that contains every point of the map. Some graph builders are:   Voronoi Roadmap Builder  Probabilistic Roadmap Builder  Visibility Roadmap", 
+            "title": "Graph Builder"
+        }, 
+        {
+            "location": "/primer/#graph-search", 
+            "text": "A graph search is an algorithm which returns the path between two\nnodes in a graph. This is one of the key player in determining the\nefficiency of the planning algorithm. Some graph searches are:   Dijkstra's Search  Breadth First Search  A* Search", 
+            "title": "Graph Search"
+        }, 
+        {
+            "location": "/primer/#interpolator", 
+            "text": "An interpolator is the algorithm which gives the path that the robot\nfollows after processing the path from graph search. The interpolator\ncan perform smoothing, simplifications etc on the input path. An\ninterpolator can also be used to implement planners that rely only\non local information of the workspace. Planning using potential\nfields can be thought of as an interpolator which works on the straight\nline path between start and end points.", 
+            "title": "Interpolator"
         }, 
         {
             "location": "/doc/", 
-            "text": "", 
+            "text": "API Reference\n\n\nThis section gives a detailed description of the API. It is strongly\nsuggested that you go through the \nPrimer\n before\nreading the API Reference. If you are looking for tutorials, they\nare available \nhere\n.\n\n\nmpel/core.hpp\n\n\nThis header contains everything which is required for implementing\none's own planning algorithm. The header is further divided into\nrelated sections\n\n\nDatatypes\n\n\nUtility Functions\n\n\nMotion Planner\n\n\nVisualization\n\n\nmpel/builtins.hpp\n\n\nThis header file contains definitions of all the pre-built components\nprovided with the library. The section is divided into related sections.\n\n\nGraph Builders\n\n\nGraph Searches\n\n\nInterpolators\n\n\nPlanner Configs", 
             "title": "API Reference"
+        }, 
+        {
+            "location": "/doc/#api-reference", 
+            "text": "This section gives a detailed description of the API. It is strongly\nsuggested that you go through the  Primer  before\nreading the API Reference. If you are looking for tutorials, they\nare available  here .", 
+            "title": "API Reference"
+        }, 
+        {
+            "location": "/doc/#mpelcorehpp", 
+            "text": "This header contains everything which is required for implementing\none's own planning algorithm. The header is further divided into\nrelated sections", 
+            "title": "mpel/core.hpp"
+        }, 
+        {
+            "location": "/doc/#datatypes", 
+            "text": "", 
+            "title": "Datatypes"
+        }, 
+        {
+            "location": "/doc/#utility-functions", 
+            "text": "", 
+            "title": "Utility Functions"
+        }, 
+        {
+            "location": "/doc/#motion-planner", 
+            "text": "", 
+            "title": "Motion Planner"
+        }, 
+        {
+            "location": "/doc/#visualization", 
+            "text": "", 
+            "title": "Visualization"
+        }, 
+        {
+            "location": "/doc/#mpelbuiltinshpp", 
+            "text": "This header file contains definitions of all the pre-built components\nprovided with the library. The section is divided into related sections.", 
+            "title": "mpel/builtins.hpp"
+        }, 
+        {
+            "location": "/doc/#graph-builders", 
+            "text": "", 
+            "title": "Graph Builders"
+        }, 
+        {
+            "location": "/doc/#graph-searches", 
+            "text": "", 
+            "title": "Graph Searches"
+        }, 
+        {
+            "location": "/doc/#interpolators", 
+            "text": "", 
+            "title": "Interpolators"
+        }, 
+        {
+            "location": "/doc/#planner-configs", 
+            "text": "", 
+            "title": "Planner Configs"
         }, 
         {
             "location": "/tut/", 
@@ -57,13 +132,23 @@
         }, 
         {
             "location": "/trouble/", 
+            "text": "Troubleshooting", 
+            "title": "Troubleshooting"
+        }, 
+        {
+            "location": "/trouble/#troubleshooting", 
             "text": "", 
             "title": "Troubleshooting"
         }, 
         {
             "location": "/contact/", 
-            "text": "", 
+            "text": "Contact\n\n\nThe library is still in the early stages of development and may be\nmissing features and containing bugs. We would appreciate any\nfeedback or feature request or bug report. Contributions in form of\ncode are welcome.\n\n\nYou can reach out to us at \nlakshayg@iitk.ac.in", 
             "title": "Contact Us"
+        }, 
+        {
+            "location": "/contact/#contact", 
+            "text": "The library is still in the early stages of development and may be\nmissing features and containing bugs. We would appreciate any\nfeedback or feature request or bug report. Contributions in form of\ncode are welcome.  You can reach out to us at  lakshayg@iitk.ac.in", 
+            "title": "Contact"
         }
     ]
 }
