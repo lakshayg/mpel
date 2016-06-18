@@ -3,6 +3,7 @@ pages:
 - Home: index.md
 - Primer: primer.md
 - Documentation:
+    - 'Getting Started': start.md
     - 'API Reference': doc.md
     - 'Tutorials': tut.md
 - Troubleshooting: trouble.md
