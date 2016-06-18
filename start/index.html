@@ -9,7 +9,7 @@
         
         <link rel="shortcut icon" href="../img/favicon.ico">
 
-	<title>API Reference - MPEL</title>
+	<title>Getting Started - MPEL</title>
 
         <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
@@ -67,14 +67,14 @@
                     <ul class="dropdown-menu">
                     
                         
-<li >
-    <a href="../start/">Getting Started</a>
+<li class="active">
+    <a href="./">Getting Started</a>
 </li>
 
                     
                         
-<li class="active">
-    <a href="./">API Reference</a>
+<li >
+    <a href="../doc/">API Reference</a>
 </li>
 
                     
@@ -110,12 +110,12 @@
                     </a>
                 </li>
                 <li >
-                    <a rel="next" href="../start/">
+                    <a rel="next" href="../primer/">
                         <i class="fa fa-arrow-left"></i> Previous
                     </a>
                 </li>
                 <li >
-                    <a rel="prev" href="../tut/">
+                    <a rel="prev" href="../doc/">
                         Next <i class="fa fa-arrow-right"></i>
                     </a>
                 </li>
@@ -129,130 +129,37 @@
             <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
-        <li class="main active"><a href="#api-reference">API Reference</a></li>
+        <li class="main active"><a href="#getting-started">Getting Started</a></li>
         
-            <li><a href="#mpelcorehpp">mpel/core.hpp</a></li>
+            <li><a href="#obtaining-the-library">Obtaining the Library</a></li>
         
-            <li><a href="#mpelbuiltinshpp">mpel/builtins.hpp</a></li>
+            <li><a href="#your-first-code-the-easy-way">Your First Code (The Easy Way)</a></li>
         
     
     </ul>
 </div></div>
             <div class="col-md-9" role="main">
 
-<h1 id="api-reference">API Reference</h1>
-<p>This section gives a detailed description of the API. It is strongly
-suggested that you go through the <a href="../primer/">Primer</a> before
-reading the API Reference. If you are looking for tutorials, they
-are available <a href="../tut/">here</a>.</p>
-<p>MPEL utilizes <a href="http://opencv.org/">OpenCV</a> for a lot a operations in
-the background. Several datatypes are borrowed directly from OpenCV.
-In such cases the code provided if merely a representation of the
-actual implementation.</p>
-<h2 id="mpelcorehpp"><strong><code>mpel/core.hpp</code></strong></h2>
-<p>This header contains everything which is required for implementing
-one's own planning algorithm. The header is further divided into
-related sections</p>
-<h3 id="datatypes">Datatypes</h3>
-<h4 id="point">Point</h4>
-<pre><code>struct Point {
-    int x, y;  // NOTE: Only integer coordinates are allowed
-    Point();
-    Point(int X, int Y) : x(X), y(Y) {}
-};
-typedef const Point&amp; PointRef;
+<h1 id="getting-started">Getting Started</h1>
+<h2 id="obtaining-the-library">Obtaining the Library</h2>
+<p>The source code for the library can be downloaded from
+<a href="http://github.com/lakshayg/mpel">GitHub</a></p>
+<pre><code>git clone https://github.com/lakshayg/mpel
+mkdir mpel/build
+cd mpel/build
+cmake .. &amp;&amp; make
 </code></pre>
 
-<p>The <code>Point</code> class supports several operations like addition,
-subtraction and multiplication with scalar.</p>
-<h4 id="segment">Segment</h4>
-<pre><code>struct Segment {
-    Point p0, p1;
-    Segment(PointRef a, PointRef b) : p0(a), p1(b) {}
-};
-typedef const Segment&amp; SegmentRef;
-</code></pre>
-
-<p>The <code>Segment</code> datatype is a struct containing two points.</p>
-<h4 id="path">Path</h4>
-<pre><code>typedef std::vector&lt;Point&gt; Path;
-typedef const Path&amp; PathRef;
-</code></pre>
-
-<p>The <code>Path</code> datatype is implemented as a vector of points and therefore
-supports all the operations allowed on a <code>std::vector</code>.</p>
-<h4 id="map">Map</h4>
-<pre><code>typedef cv::Mat Map;
-typedef const Map&amp; MapRef;
-</code></pre>
-
-<p>A <code>Map</code> is a 2D matrix which represents the workspace as an occupancy
-grid. Map supports the <code>clone()</code> operation which is required whenever
-a Map needs to be copied.</p>
-<h4 id="graph">Graph</h4>
-<pre><code>class Graph {
-public:
-    typedef size_t vertex_t;
-
-    Graph();
-    ~Graph();
-    void add_edge(Point pt1, Point pt2, double weight = 0);
-    size_t descriptor(PointRef pt) const;
-    size_t num_vertices() const;
-    Point vertex(size_t descriptor) const;
-    double weight(PointRef a, PointRef b) const;
-    double weight(size_t a, size_t b) const;
-    const std::vector&lt;Point&gt;&amp; vertex_list() const;
-private:
-    ...
-};
-typedef const Graph&amp; GraphRef;
-</code></pre>
-
-<p>The current implementation of <code>Graph</code> is an <em>incidence matrix</em>. It
-supports the following operations:</p>
-<ul>
-<li><code>add_edge(Point pt1, Point pt2, double weight = 0)</code> - Add a new edge
-in the graph. Two nodes can have only a single edge between them. A
-negative weight indicates that no edge is present.</li>
-<li><code>size_t descriptor(PointRef pt) const</code> - Every vertex is assigned a
-descriptor in the graph. This function returns the vertex descriptor.</li>
-<li><code>size_t num_vertices() const</code> - Returns the number of vertices in the graph.</li>
-<li><code>Point vertex(size_t descriptor) const</code> - Returns the vertex (Point)
-corresponding to the descriptor given as input</li>
-<li><code>double weight(PointRef a, PointRef b) const</code> - Returns the weight of
-edge given two vertices. A negative weight indicates that the verties
-are not connected.</li>
-<li><code>double weight(size_t a, size_t b) const</code> - Returns the weight of edge
-given two vertex descriptors.</li>
-<li><code>const std::vector&lt;Point&gt;&amp; vertex_list() const</code> - Returns the list of
-vertices present in the graph.</li>
-</ul>
-<h4 id="workspace">Workspace</h4>
-<pre><code>struct Workspace {
-    Map map;
-};
-</code></pre>
-
-<h4 id="problemdefinition">ProblemDefinition</h4>
-<pre><code>struct ProblemDefinition {
-    Point start;
-    Point goal;
-};
-</code></pre>
-
-<p>This datatype is used to specify the planning problem and pass it to
-the motion planner.</p>
-<h3 id="utility-functions">Utility Functions</h3>
-<h3 id="motion-planner">Motion Planner</h3>
-<h3 id="visualization">Visualization</h3>
-<h2 id="mpelbuiltinshpp"><strong><code>mpel/builtins.hpp</code></strong></h2>
-<p>This header file contains definitions of all the pre-built components
-provided with the library. The section is divided into related sections.</p>
-<h3 id="graph-builders">Graph Builders</h3>
-<h3 id="graph-searches">Graph Searches</h3>
-<h3 id="interpolators">Interpolators</h3>
-<h3 id="planner-configs">Planner Configs</h3></div>
+<h2 id="your-first-code-the-easy-way">Your First Code (The Easy Way)</h2>
+<p>The easiest way to compile your first program is to use the
+<code>user</code> directory in the repository. The <code>CMakeLists.txt</code> file
+in the directory takes care of linking the code.</p>
+<pre><code>cd mpel/user
+# write your first code
+cd ../build
+cmake .. &amp;&amp; make
+cd user  # your executable should be present here
+</code></pre></div>
         </div>
 
         <footer class="col-md-12">
