@@ -1,0 +1,69 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "Welcome to MPEL\n\n\nMPEL (Motion Planning and Experimentation Library) is a library\nwritten in C++ for solving motion planning problems and experimenting\nwith planning algorithms. It provides an intuitive syntax and several\ncomponents which can be used to build planning algorithms either by\n\"gluing\" the components together or from scratch. The library also\nprovides user the ability to easily visualize the results thus making\nit a great tool for use in classrooms. Browse through the\ndocumentation and tutorials to learn more about the library.\n\n\nAbout\n\n\nMPEL is being developed at the \nCenter for\nMechatronics\n at \nIIT\nKanpur\n. The project is supervised by \nDr. Bhaskar\nDasgupta\n. The source code for MPEL\nis hosted on \nGithub\n.", 
+            "title": "Home"
+        }, 
+        {
+            "location": "/#welcome-to-mpel", 
+            "text": "MPEL (Motion Planning and Experimentation Library) is a library\nwritten in C++ for solving motion planning problems and experimenting\nwith planning algorithms. It provides an intuitive syntax and several\ncomponents which can be used to build planning algorithms either by\n\"gluing\" the components together or from scratch. The library also\nprovides user the ability to easily visualize the results thus making\nit a great tool for use in classrooms. Browse through the\ndocumentation and tutorials to learn more about the library.", 
+            "title": "Welcome to MPEL"
+        }, 
+        {
+            "location": "/#about", 
+            "text": "MPEL is being developed at the  Center for\nMechatronics  at  IIT\nKanpur . The project is supervised by  Dr. Bhaskar\nDasgupta . The source code for MPEL\nis hosted on  Github .", 
+            "title": "About"
+        }, 
+        {
+            "location": "/primer/", 
+            "text": "Motion Planning Primer\n\n\nWhat is Motion Planning?\n\n\nMotion Planning Algorithms", 
+            "title": "Primer"
+        }, 
+        {
+            "location": "/primer/#motion-planning-primer", 
+            "text": "", 
+            "title": "Motion Planning Primer"
+        }, 
+        {
+            "location": "/primer/#what-is-motion-planning", 
+            "text": "", 
+            "title": "What is Motion Planning?"
+        }, 
+        {
+            "location": "/primer/#motion-planning-algorithms", 
+            "text": "", 
+            "title": "Motion Planning Algorithms"
+        }, 
+        {
+            "location": "/doc/", 
+            "text": "", 
+            "title": "API Reference"
+        }, 
+        {
+            "location": "/tut/", 
+            "text": "MPEL Tutorials\n\n\nUsing a pre-built planner\n\n\nThe code below shows how to use a motion planner provided by the library\nfor motion planning\n\n\n#include \nmpel/core.hpp\n\n#include \nmpel/builtins.hpp\n\n\nusing namespace mpel;\n\nint main() {\n    Planner::Config pc = voronoi_planner_config();  // Pre-built planner configuration\n    Planner p(pc); // Define a voronoi roadmap planner\n\n    Workspace ws;\n    ws.map = load_map_from_image(\n004.bmp\n); // load the workspace map from a bitmap\n                                             // this is currently the ONLY method for\n                                             // loading maps\n\n    ProblemDefinition pdef;      // Definition of the problem to be solved\n    pdef.start = Point(50,50);\n    pdef.goal = Point(400,400);\n\n    p.load_workspace(ws);        // load workspace into the planner\n    Path path = p.solve(pdef);   // solve the given problem and give the path as output\n\n    View v(\nVoronoi Planner\n);   // Display the results\n    v.add_layer(p);\n    v.add_layer(path);\n    View::stay(); // Prevent the program from exiting\n\n    return 0;\n}", 
+            "title": "Tutorials"
+        }, 
+        {
+            "location": "/tut/#mpel-tutorials", 
+            "text": "", 
+            "title": "MPEL Tutorials"
+        }, 
+        {
+            "location": "/tut/#using-a-pre-built-planner", 
+            "text": "The code below shows how to use a motion planner provided by the library\nfor motion planning  #include  mpel/core.hpp \n#include  mpel/builtins.hpp \n\nusing namespace mpel;\n\nint main() {\n    Planner::Config pc = voronoi_planner_config();  // Pre-built planner configuration\n    Planner p(pc); // Define a voronoi roadmap planner\n\n    Workspace ws;\n    ws.map = load_map_from_image( 004.bmp ); // load the workspace map from a bitmap\n                                             // this is currently the ONLY method for\n                                             // loading maps\n\n    ProblemDefinition pdef;      // Definition of the problem to be solved\n    pdef.start = Point(50,50);\n    pdef.goal = Point(400,400);\n\n    p.load_workspace(ws);        // load workspace into the planner\n    Path path = p.solve(pdef);   // solve the given problem and give the path as output\n\n    View v( Voronoi Planner );   // Display the results\n    v.add_layer(p);\n    v.add_layer(path);\n    View::stay(); // Prevent the program from exiting\n\n    return 0;\n}", 
+            "title": "Using a pre-built planner"
+        }, 
+        {
+            "location": "/trouble/", 
+            "text": "", 
+            "title": "Troubleshooting"
+        }, 
+        {
+            "location": "/contact/", 
+            "text": "", 
+            "title": "Contact Us"
+        }
+    ]
+}
