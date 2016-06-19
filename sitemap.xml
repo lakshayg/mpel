@@ -3,7 +3,7 @@
 
     
     <url>
-     <loc>None/</loc>
+     <loc>https://lakshayg.github.io/mpel/</loc>
      <lastmod>2016-06-20</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -12,35 +12,13 @@
     
         
     <url>
-     <loc>None/basics/</loc>
+     <loc>https://lakshayg.github.io/mpel/basics/</loc>
      <lastmod>2016-06-20</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/algos/</loc>
-     <lastmod>2016-06-20</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    
-
-    
-        
-    <url>
-     <loc>None/start/</loc>
-     <lastmod>2016-06-20</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/doc/</loc>
-     <lastmod>2016-06-20</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/tut/</loc>
+     <loc>https://lakshayg.github.io/mpel/algos/</loc>
      <lastmod>2016-06-20</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -48,8 +26,30 @@
     
 
     
+        
     <url>
-     <loc>None/trouble/</loc>
+     <loc>https://lakshayg.github.io/mpel/start/</loc>
+     <lastmod>2016-06-20</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>https://lakshayg.github.io/mpel/doc/</loc>
+     <lastmod>2016-06-20</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>https://lakshayg.github.io/mpel/tut/</loc>
+     <lastmod>2016-06-20</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    
+
+    
+    <url>
+     <loc>https://lakshayg.github.io/mpel/trouble/</loc>
      <lastmod>2016-06-20</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -57,7 +57,7 @@
 
     
     <url>
-     <loc>None/contact/</loc>
+     <loc>https://lakshayg.github.io/mpel/contact/</loc>
      <lastmod>2016-06-20</lastmod>
      <changefreq>daily</changefreq>
     </url>
