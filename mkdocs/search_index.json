@@ -11,24 +11,49 @@
             "title": "Welcome to MPEL"
         },
         {
-            "location": "/primer/",
+            "location": "/basics/",
             "text": "Motion Planning Primer\n\n\nThis part of the website is meant to give the reader an intuitive\nfeel for the library. It is highly recommended that the reader goes\nthrough this section before proceeding to the API reference or the\ntutorials.\n\n\nThe library has been designed so that it is possible to use\npre-built planner as well as build new planners from scratch. The\nsyntax of the library seems natural once the user is familiar with\na few concepts and terminology.\n\n\nTerminology\n\n\nPoint\n: A point is any location in the 2D workspace.\n\n\nPath\n: A path is a sequence of points.\n\n\nMap\n: A map is a bitmap representing the occupied and free regions\nin the space where the path is to be planned.\n\n\nStructure of Motion Planning Algorithms\n\n\nWe propose that most motion planning algorithms can be represented\nas a combination of four basic components:\n\n\n\n\nCollision Checker\n\n\nGraph Builder\n\n\nGraph Search\n\n\nInterpolator\n\n\n\n\nCollision Checker\n\n\nA collision checker is used in algorithms whenever they need to\ncheck if a state of the robot causes collision with the workspace\nor not. This library currently supports planning in 2D environments\ntherefore there is only a single pre-built collision checker built\ninto all the motion planners and cannot be changed.\n\n\nGraph Builder\n\n\nA graph builder is an algorithm which takes a map of the workspace as\nthe input and generates a graph which is then used by the motion\nplanner for finding paths. For an algorithm which does not require\na graph but works directly on a map, it is possible to generate a\ngraph that contains every point of the map. Some graph builders are:\n\n\n\n\nVoronoi Roadmap Builder\n\n\nProbabilistic Roadmap Builder\n\n\nVisibility Roadmap\n\n\n\n\nGraph Search\n\n\nA graph search is an algorithm which returns the path between two\nnodes in a graph. This is one of the key player in determining the\nefficiency of the planning algorithm. Some graph searches are:\n\n\n\n\nDijkstra's Search\n\n\nBreadth First Search\n\n\nA* Search\n\n\n\n\nInterpolator\n\n\nAn interpolator is the algorithm which gives the path that the robot\nfollows after processing the path from graph search. The interpolator\ncan perform smoothing, simplifications etc on the input path. An\ninterpolator can also be used to implement planners that rely only\non local information of the workspace. Planning using potential\nfields can be thought of as an interpolator which works on the straight\nline path between start and end points.",
-            "title": "Primer"
+            "title": "Basic Ideas"
         },
         {
-            "location": "/primer/#motion-planning-primer",
+            "location": "/basics/#motion-planning-primer",
             "text": "This part of the website is meant to give the reader an intuitive\nfeel for the library. It is highly recommended that the reader goes\nthrough this section before proceeding to the API reference or the\ntutorials.  The library has been designed so that it is possible to use\npre-built planner as well as build new planners from scratch. The\nsyntax of the library seems natural once the user is familiar with\na few concepts and terminology.",
             "title": "Motion Planning Primer"
         },
         {
-            "location": "/primer/#terminology",
+            "location": "/basics/#terminology",
             "text": "Point : A point is any location in the 2D workspace.  Path : A path is a sequence of points.  Map : A map is a bitmap representing the occupied and free regions\nin the space where the path is to be planned.",
             "title": "Terminology"
         },
         {
-            "location": "/primer/#structure-of-motion-planning-algorithms",
+            "location": "/basics/#structure-of-motion-planning-algorithms",
             "text": "We propose that most motion planning algorithms can be represented\nas a combination of four basic components:   Collision Checker  Graph Builder  Graph Search  Interpolator   Collision Checker  A collision checker is used in algorithms whenever they need to\ncheck if a state of the robot causes collision with the workspace\nor not. This library currently supports planning in 2D environments\ntherefore there is only a single pre-built collision checker built\ninto all the motion planners and cannot be changed.  Graph Builder  A graph builder is an algorithm which takes a map of the workspace as\nthe input and generates a graph which is then used by the motion\nplanner for finding paths. For an algorithm which does not require\na graph but works directly on a map, it is possible to generate a\ngraph that contains every point of the map. Some graph builders are:   Voronoi Roadmap Builder  Probabilistic Roadmap Builder  Visibility Roadmap   Graph Search  A graph search is an algorithm which returns the path between two\nnodes in a graph. This is one of the key player in determining the\nefficiency of the planning algorithm. Some graph searches are:   Dijkstra's Search  Breadth First Search  A* Search   Interpolator  An interpolator is the algorithm which gives the path that the robot\nfollows after processing the path from graph search. The interpolator\ncan perform smoothing, simplifications etc on the input path. An\ninterpolator can also be used to implement planners that rely only\non local information of the workspace. Planning using potential\nfields can be thought of as an interpolator which works on the straight\nline path between start and end points.",
             "title": "Structure of Motion Planning Algorithms"
+        },
+        {
+            "location": "/algos/",
+            "text": "Algorithms\n\n\nThis page is meant to describe the various algorithms used\nin the library.\n\n\nGraph Search\n\n\nDijkstra's Search\n\n\nBreadth First Search\n\n\nA* Search\n\n\nGraph Builder\n\n\nProbabiistic Graph Builder\n\n\nVoronoi Graph Builder\n\n\nInterpolator\n\n\nPotential Field Interpolator",
+            "title": "Algorithms"
+        },
+        {
+            "location": "/algos/#algorithms",
+            "text": "This page is meant to describe the various algorithms used\nin the library.",
+            "title": "Algorithms"
+        },
+        {
+            "location": "/algos/#graph-search",
+            "text": "Dijkstra's Search  Breadth First Search  A* Search",
+            "title": "Graph Search"
+        },
+        {
+            "location": "/algos/#graph-builder",
+            "text": "Probabiistic Graph Builder  Voronoi Graph Builder",
+            "title": "Graph Builder"
+        },
+        {
+            "location": "/algos/#interpolator",
+            "text": "Potential Field Interpolator",
+            "title": "Interpolator"
         },
         {
             "location": "/start/",

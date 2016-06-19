@@ -4,36 +4,44 @@
     
     <url>
      <loc>None/</loc>
-     <lastmod>2016-06-19</lastmod>
+     <lastmod>2016-06-20</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
 
     
+        
     <url>
-     <loc>None/primer/</loc>
-     <lastmod>2016-06-19</lastmod>
+     <loc>None/basics/</loc>
+     <lastmod>2016-06-20</lastmod>
      <changefreq>daily</changefreq>
     </url>
+        
+    <url>
+     <loc>None/algos/</loc>
+     <lastmod>2016-06-20</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
     
 
     
         
     <url>
      <loc>None/start/</loc>
-     <lastmod>2016-06-19</lastmod>
+     <lastmod>2016-06-20</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/doc/</loc>
-     <lastmod>2016-06-19</lastmod>
+     <lastmod>2016-06-20</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/tut/</loc>
-     <lastmod>2016-06-19</lastmod>
+     <lastmod>2016-06-20</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -42,7 +50,7 @@
     
     <url>
      <loc>None/trouble/</loc>
-     <lastmod>2016-06-19</lastmod>
+     <lastmod>2016-06-20</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -50,7 +58,7 @@
     
     <url>
      <loc>None/contact/</loc>
-     <lastmod>2016-06-19</lastmod>
+     <lastmod>2016-06-20</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
