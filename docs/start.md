@@ -2,6 +2,15 @@
 
 ## Obtaining the Library
 
+MPEL depends on boost and OpenCV for some of its functionality
+you need to install these libraries before you can compile
+MPEL. They can be installed using the following commands
+
+```
+sudo apt-get install libboost-all-dev
+sudo apt-get install libopencv-dev
+```
+
 The source code for the library can be downloaded from
 [GitHub](http://github.com/lakshayg/mpel)
 
