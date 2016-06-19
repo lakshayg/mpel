@@ -7,8 +7,13 @@
         },
         {
             "location": "/#welcome-to-mpel",
-            "text": "MPEL (Motion Planning and Experimentation Library) is a library\nwritten in C++ for solving motion planning problems and experimenting\nwith planning algorithms. The library currently allows for planning only\nin a 2 dimensional workspace. It provides an intuitive syntax and several\ncomponents which can be used to build planning algorithms either by\n\"gluing\" the components together or from scratch. The library also\nprovides user the ability to easily visualize the results thus making\nit a great tool for use in classrooms. Browse through the\ndocumentation and tutorials to learn more about the library.  About  MPEL is being developed at the  Center for\nMechatronics  at  IIT\nKanpur . The project is supervised by  Dr. Bhaskar\nDasgupta . The source code for MPEL\nis hosted on  Github .",
+            "text": "MPEL (Motion Planning and Experimentation Library) is a library\nwritten in C++ for solving motion planning problems and experimenting\nwith planning algorithms. The library currently allows for planning only\nin a 2 dimensional workspace. It provides an intuitive syntax and several\ncomponents which can be used to build planning algorithms either by\n\"gluing\" the components together or from scratch. The library also\nprovides user the ability to easily visualize the results thus making\nit a great tool for use in classrooms. Browse through the\ndocumentation and tutorials to learn more about the library.",
             "title": "Welcome to MPEL"
+        },
+        {
+            "location": "/#about",
+            "text": "MPEL is being developed at the  Center for\nMechatronics  at  IIT\nKanpur . The project is supervised by  Dr. Bhaskar\nDasgupta . The source code for MPEL\nis hosted on  Github .",
+            "title": "About"
         },
         {
             "location": "/basics/",
@@ -27,8 +32,28 @@
         },
         {
             "location": "/basics/#structure-of-motion-planning-algorithms",
-            "text": "We propose that most motion planning algorithms can be represented\nas a combination of four basic components:   Collision Checker  Graph Builder  Graph Search  Interpolator   Collision Checker  A collision checker is used in algorithms whenever they need to\ncheck if a state of the robot causes collision with the workspace\nor not. This library currently supports planning in 2D environments\ntherefore there is only a single pre-built collision checker built\ninto all the motion planners and cannot be changed.  Graph Builder  A graph builder is an algorithm which takes a map of the workspace as\nthe input and generates a graph which is then used by the motion\nplanner for finding paths. For an algorithm which does not require\na graph but works directly on a map, it is possible to generate a\ngraph that contains every point of the map. Some graph builders are:   Voronoi Roadmap Builder  Probabilistic Roadmap Builder  Visibility Roadmap   Graph Search  A graph search is an algorithm which returns the path between two\nnodes in a graph. This is one of the key player in determining the\nefficiency of the planning algorithm. Some graph searches are:   Dijkstra's Search  Breadth First Search  A* Search   Interpolator  An interpolator is the algorithm which gives the path that the robot\nfollows after processing the path from graph search. The interpolator\ncan perform smoothing, simplifications etc on the input path. An\ninterpolator can also be used to implement planners that rely only\non local information of the workspace. Planning using potential\nfields can be thought of as an interpolator which works on the straight\nline path between start and end points.",
+            "text": "We propose that most motion planning algorithms can be represented\nas a combination of four basic components:   Collision Checker  Graph Builder  Graph Search  Interpolator",
             "title": "Structure of Motion Planning Algorithms"
+        },
+        {
+            "location": "/basics/#collision-checker",
+            "text": "A collision checker is used in algorithms whenever they need to\ncheck if a state of the robot causes collision with the workspace\nor not. This library currently supports planning in 2D environments\ntherefore there is only a single pre-built collision checker built\ninto all the motion planners and cannot be changed.",
+            "title": "Collision Checker"
+        },
+        {
+            "location": "/basics/#graph-builder",
+            "text": "A graph builder is an algorithm which takes a map of the workspace as\nthe input and generates a graph which is then used by the motion\nplanner for finding paths. For an algorithm which does not require\na graph but works directly on a map, it is possible to generate a\ngraph that contains every point of the map. Some graph builders are:   Voronoi Roadmap Builder  Probabilistic Roadmap Builder  Visibility Roadmap",
+            "title": "Graph Builder"
+        },
+        {
+            "location": "/basics/#graph-search",
+            "text": "A graph search is an algorithm which returns the path between two\nnodes in a graph. This is one of the key player in determining the\nefficiency of the planning algorithm. Some graph searches are:   Dijkstra's Search  Breadth First Search  A* Search",
+            "title": "Graph Search"
+        },
+        {
+            "location": "/basics/#interpolator",
+            "text": "An interpolator is the algorithm which gives the path that the robot\nfollows after processing the path from graph search. The interpolator\ncan perform smoothing, simplifications etc on the input path. An\ninterpolator can also be used to implement planners that rely only\non local information of the workspace. Planning using potential\nfields can be thought of as an interpolator which works on the straight\nline path between start and end points.",
+            "title": "Interpolator"
         },
         {
             "location": "/algos/",
@@ -42,18 +67,48 @@
         },
         {
             "location": "/algos/#graph-search",
-            "text": "Dijkstra's Search  Breadth First Search  A* Search",
+            "text": "",
             "title": "Graph Search"
         },
         {
+            "location": "/algos/#dijkstras-search",
+            "text": "",
+            "title": "Dijkstra's Search"
+        },
+        {
+            "location": "/algos/#breadth-first-search",
+            "text": "",
+            "title": "Breadth First Search"
+        },
+        {
+            "location": "/algos/#a42-search",
+            "text": "",
+            "title": "A* Search"
+        },
+        {
             "location": "/algos/#graph-builder",
-            "text": "Probabiistic Graph Builder  Voronoi Graph Builder",
+            "text": "",
             "title": "Graph Builder"
         },
         {
+            "location": "/algos/#probabiistic-graph-builder",
+            "text": "",
+            "title": "Probabiistic Graph Builder"
+        },
+        {
+            "location": "/algos/#voronoi-graph-builder",
+            "text": "",
+            "title": "Voronoi Graph Builder"
+        },
+        {
             "location": "/algos/#interpolator",
-            "text": "Potential Field Interpolator",
+            "text": "",
             "title": "Interpolator"
+        },
+        {
+            "location": "/algos/#potential-field-interpolator",
+            "text": "",
+            "title": "Potential Field Interpolator"
         },
         {
             "location": "/start/",
@@ -87,13 +142,88 @@
         },
         {
             "location": "/doc/#mpelcorehpp",
-            "text": "This header contains everything which is required for implementing\none's own planning algorithm. The header is further divided into\nrelated sections  Datatypes  Point  struct Point {\n    int x, y;  // NOTE: Only integer coordinates are allowed\n    Point();\n    Point(int X, int Y) : x(X), y(Y) {}\n};\ntypedef const Point& PointRef;  The  Point  class supports several operations like addition,\nsubtraction and multiplication with scalar.  Segment  struct Segment {\n    Point p0, p1;\n    Segment(PointRef a, PointRef b) : p0(a), p1(b) {}\n};\ntypedef const Segment& SegmentRef;  The  Segment  datatype is a struct containing two points.  Path  typedef std::vector<Point> Path;\ntypedef const Path& PathRef;  The  Path  datatype is implemented as a vector of points and therefore\nsupports all the operations allowed on a  std::vector .  Map  typedef cv::Mat Map;\ntypedef const Map& MapRef;  A  Map  is a 2D matrix which represents the workspace as an occupancy\ngrid. Map supports the  clone()  operation which is required whenever\na Map needs to be copied.  Graph  class Graph {\npublic:\n    typedef size_t vertex_t;\n\n    Graph();\n    ~Graph();\n    void add_edge(Point pt1, Point pt2, double weight = 0);\n    size_t descriptor(PointRef pt) const;\n    size_t num_vertices() const;\n    Point vertex(size_t descriptor) const;\n    double weight(PointRef a, PointRef b) const;\n    double weight(size_t a, size_t b) const;\n    const std::vector<Point>& vertex_list() const;\nprivate:\n    ...\n};\ntypedef const Graph& GraphRef;  The current implementation of  Graph  is an  incidence matrix . It\nsupports the following operations:   add_edge(Point pt1, Point pt2, double weight = 0)  - Add a new edge\nin the graph. Two nodes can have only a single edge between them. A\nnegative weight indicates that no edge is present.  size_t descriptor(PointRef pt) const  - Every vertex is assigned a\ndescriptor in the graph. This function returns the vertex descriptor.  size_t num_vertices() const  - Returns the number of vertices in the graph.  Point vertex(size_t descriptor) const  - Returns the vertex (Point)\ncorresponding to the descriptor given as input  double weight(PointRef a, PointRef b) const  - Returns the weight of\nedge given two vertices. A negative weight indicates that the verties\nare not connected.  double weight(size_t a, size_t b) const  - Returns the weight of edge\ngiven two vertex descriptors.  const std::vector<Point>& vertex_list() const  - Returns the list of\nvertices present in the graph.   Workspace  struct Workspace {\n    Map map;\n};  ProblemDefinition  struct ProblemDefinition {\n    Point start;\n    Point goal;\n};  This datatype is used to specify the planning problem and pass it to\nthe motion planner.  Utility Functions  Motion Planner  Visualization",
+            "text": "This header contains everything which is required for implementing\none's own planning algorithm. The header is further divided into\nrelated sections",
             "title": "mpel/core.hpp"
         },
         {
+            "location": "/doc/#datatypes",
+            "text": "",
+            "title": "Datatypes"
+        },
+        {
+            "location": "/doc/#point",
+            "text": "struct Point {\n    int x, y;  // NOTE: Only integer coordinates are allowed\n    Point();\n    Point(int X, int Y) : x(X), y(Y) {}\n};\ntypedef const Point& PointRef;  The  Point  class supports several operations like addition,\nsubtraction and multiplication with scalar.",
+            "title": "Point"
+        },
+        {
+            "location": "/doc/#segment",
+            "text": "struct Segment {\n    Point p0, p1;\n    Segment(PointRef a, PointRef b) : p0(a), p1(b) {}\n};\ntypedef const Segment& SegmentRef;  The  Segment  datatype is a struct containing two points.",
+            "title": "Segment"
+        },
+        {
+            "location": "/doc/#path",
+            "text": "typedef std::vector<Point> Path;\ntypedef const Path& PathRef;  The  Path  datatype is implemented as a vector of points and therefore\nsupports all the operations allowed on a  std::vector .",
+            "title": "Path"
+        },
+        {
+            "location": "/doc/#map",
+            "text": "typedef cv::Mat Map;\ntypedef const Map& MapRef;  A  Map  is a 2D matrix which represents the workspace as an occupancy\ngrid. Map supports the  clone()  operation which is required whenever\na Map needs to be copied.",
+            "title": "Map"
+        },
+        {
+            "location": "/doc/#graph",
+            "text": "class Graph {\npublic:\n    typedef size_t vertex_t;\n\n    Graph();\n    ~Graph();\n    void add_edge(Point pt1, Point pt2, double weight = 0);\n    size_t descriptor(PointRef pt) const;\n    size_t num_vertices() const;\n    Point vertex(size_t descriptor) const;\n    double weight(PointRef a, PointRef b) const;\n    double weight(size_t a, size_t b) const;\n    const std::vector<Point>& vertex_list() const;\nprivate:\n    ...\n};\ntypedef const Graph& GraphRef;  The current implementation of  Graph  is an  incidence matrix . It\nsupports the following operations:   add_edge(Point pt1, Point pt2, double weight = 0)  - Add a new edge\nin the graph. Two nodes can have only a single edge between them. A\nnegative weight indicates that no edge is present.  size_t descriptor(PointRef pt) const  - Every vertex is assigned a\ndescriptor in the graph. This function returns the vertex descriptor.  size_t num_vertices() const  - Returns the number of vertices in the graph.  Point vertex(size_t descriptor) const  - Returns the vertex (Point)\ncorresponding to the descriptor given as input  double weight(PointRef a, PointRef b) const  - Returns the weight of\nedge given two vertices. A negative weight indicates that the verties\nare not connected.  double weight(size_t a, size_t b) const  - Returns the weight of edge\ngiven two vertex descriptors.  const std::vector<Point>& vertex_list() const  - Returns the list of\nvertices present in the graph.",
+            "title": "Graph"
+        },
+        {
+            "location": "/doc/#workspace",
+            "text": "struct Workspace {\n    Map map;\n};",
+            "title": "Workspace"
+        },
+        {
+            "location": "/doc/#problemdefinition",
+            "text": "struct ProblemDefinition {\n    Point start;\n    Point goal;\n};  This datatype is used to specify the planning problem and pass it to\nthe motion planner.",
+            "title": "ProblemDefinition"
+        },
+        {
+            "location": "/doc/#utility-functions",
+            "text": "",
+            "title": "Utility Functions"
+        },
+        {
+            "location": "/doc/#motion-planner",
+            "text": "",
+            "title": "Motion Planner"
+        },
+        {
+            "location": "/doc/#visualization",
+            "text": "",
+            "title": "Visualization"
+        },
+        {
             "location": "/doc/#mpelbuiltinshpp",
-            "text": "This header file contains definitions of all the pre-built components\nprovided with the library. The section is divided into related sections.  Graph Builders  Graph Searches  Interpolators  Planner Configs",
+            "text": "This header file contains definitions of all the pre-built components\nprovided with the library. The section is divided into related sections.",
             "title": "mpel/builtins.hpp"
+        },
+        {
+            "location": "/doc/#graph-builders",
+            "text": "",
+            "title": "Graph Builders"
+        },
+        {
+            "location": "/doc/#graph-searches",
+            "text": "",
+            "title": "Graph Searches"
+        },
+        {
+            "location": "/doc/#interpolators",
+            "text": "",
+            "title": "Interpolators"
+        },
+        {
+            "location": "/doc/#planner-configs",
+            "text": "",
+            "title": "Planner Configs"
         },
         {
             "location": "/tut/",
@@ -102,8 +232,13 @@
         },
         {
             "location": "/tut/#mpel-tutorials",
-            "text": "Using a pre-built planner  The code below shows how to use a motion planner provided by the library\nfor motion planning  #include <mpel/core.hpp>\n#include <mpel/builtins.hpp>\n\nusing namespace mpel;\n\nint main() {\n    Planner::Config pc = voronoi_planner_config();  // Pre-built planner configuration\n    Planner p(pc); // Define a voronoi roadmap planner\n\n    Workspace ws;\n    ws.map = load_map_from_image(\"004.bmp\"); // load the workspace map from a bitmap\n                                             // this is currently the ONLY method for\n                                             // loading maps\n\n    ProblemDefinition pdef;      // Definition of the problem to be solved\n    pdef.start = Point(50,50);\n    pdef.goal = Point(400,400);\n\n    p.load_workspace(ws);        // load workspace into the planner\n    Path path = p.solve(pdef);   // solve the given problem and give the path as output\n\n    View v(\"Voronoi Planner\");   // Display the results\n    v.add_layer(p);\n    v.add_layer(path);\n    View::stay(); // Prevent the program from exiting\n\n    return 0;\n}",
+            "text": "",
             "title": "MPEL Tutorials"
+        },
+        {
+            "location": "/tut/#using-a-pre-built-planner",
+            "text": "The code below shows how to use a motion planner provided by the library\nfor motion planning  #include <mpel/core.hpp>\n#include <mpel/builtins.hpp>\n\nusing namespace mpel;\n\nint main() {\n    Planner::Config pc = voronoi_planner_config();  // Pre-built planner configuration\n    Planner p(pc); // Define a voronoi roadmap planner\n\n    Workspace ws;\n    ws.map = load_map_from_image(\"004.bmp\"); // load the workspace map from a bitmap\n                                             // this is currently the ONLY method for\n                                             // loading maps\n\n    ProblemDefinition pdef;      // Definition of the problem to be solved\n    pdef.start = Point(50,50);\n    pdef.goal = Point(400,400);\n\n    p.load_workspace(ws);        // load workspace into the planner\n    Path path = p.solve(pdef);   // solve the given problem and give the path as output\n\n    View v(\"Voronoi Planner\");   // Display the results\n    v.add_layer(p);\n    v.add_layer(path);\n    View::stay(); // Prevent the program from exiting\n\n    return 0;\n}",
+            "title": "Using a pre-built planner"
         },
         {
             "location": "/trouble/",
