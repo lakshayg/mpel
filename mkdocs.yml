@@ -1,4 +1,8 @@
 site_name: MPEL
+site_url: https://lakshayg.github.io/mpel
+repo_url: https://github.com/lakshayg/mpel
+site_description: Documentation for the Motion Planning and Experimentation Library (MPEL)
+site_author: Lakshay Garg
 pages:
 - Home: index.md
 - Primer:
