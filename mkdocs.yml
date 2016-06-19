@@ -14,4 +14,5 @@ pages:
     - 'Tutorials': tut.md
 - Troubleshooting: trouble.md
 - Contact Us: contact.md
+site_favicon: favicon.ico
 theme: united
