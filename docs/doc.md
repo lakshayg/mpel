@@ -1,7 +1,7 @@
 # API Reference
 
 This section gives a detailed description of the API. It is strongly
-suggested that you go through the [Primer](primer.md) before
+suggested that you go through the [Primer](basics.md) before
 reading the API Reference. If you are looking for tutorials, they
 are available [here](tut.md).
 

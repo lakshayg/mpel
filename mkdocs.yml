@@ -1,7 +1,9 @@
 site_name: MPEL
 pages:
 - Home: index.md
-- Primer: primer.md
+- Primer:
+    - 'Basic Ideas': basics.md
+    - 'Algorithms': algos.md
 - Documentation:
     - 'Getting Started': start.md
     - 'API Reference': doc.md
