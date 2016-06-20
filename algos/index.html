@@ -168,10 +168,40 @@
             <div class="col-md-9" role="main">
 
 <h1 id="algorithms">Algorithms</h1>
-<p>This page is meant to describe the various algorithms used
-in the library.</p>
+<p>This page is meant to describe the various algorithm
+implementations used in the library and possible ways
+to improve these implementations. These have been
+provided to help learners understand the algorithms
+and help contributors in improving the implementation
+by replacing the inefficient algorithms with efficient
+ones.</p>
 <h2 id="graph-search">Graph Search</h2>
 <h3 id="dijkstras-search">Dijkstra's Search</h3>
+<pre><code>procedure dijkstra_search(Graph g, Point in, Point out):
+
+    for each vertex v in Graph:
+        dist[v] &lt;- INFINITY
+        parent[v] &lt;- UNDEFINED
+    dist[in] = 0
+
+    while True:
+        curr = vertex with min dist  # uses sorting, can be improved by using a heap
+        if no vertex in Graph:
+            return &quot;No path found&quot;
+
+        if curr is out:
+            construct path from list of parents
+            return path
+
+        for n in neighbors of curr:
+            d = dist[curr] + edge_weight(curr, n)
+            if d &lt; dist[n]:
+                parent[n] = curr
+                dist[n] = d
+
+        delete curr from Graph
+</code></pre>
+
 <h3 id="breadth-first-search">Breadth First Search</h3>
 <h3 id="a42-search">A* Search</h3>
 <h2 id="graph-builder">Graph Builder</h2>
