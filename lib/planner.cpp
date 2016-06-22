@@ -25,17 +25,21 @@ Path Planner::solve(ProblemDefinition pdef) {
 	// find point closest to given points in graph
 	if (is_collision(_ws.map, pdef.start)) return Path();
 	if (is_collision(_ws.map, pdef.goal)) return Path();
+	Path p1, p;
 	Point in, out;
-	double in_dist  = std::numeric_limits<double>::max();
-	double out_dist = std::numeric_limits<double>::max();
-	for (auto it = _g.vertex_list().begin(); it != _g.vertex_list().end(); ++it) {
-		double d_in  = distance(*it, pdef.start);
-		double d_out = distance(*it, pdef.goal);
-		if (d_in < in_dist) {in = *it; in_dist = d_in; }
-		if (d_out < out_dist) {out = *it; out_dist = d_out; }
+
+	if (not _g.vertex_list().empty()) {
+		double in_dist  = std::numeric_limits<double>::max();
+		double out_dist = std::numeric_limits<double>::max();
+		for (auto it = _g.vertex_list().begin(); it != _g.vertex_list().end(); ++it) {
+			double d_in  = distance(*it, pdef.start);
+			double d_out = distance(*it, pdef.goal);
+			if (d_in < in_dist) {in = *it; in_dist = d_in; }
+			if (d_out < out_dist) {out = *it; out_dist = d_out; }
+		}
+		p1 = _pc.graph_search(_g, in, out);
 	}
 
-	Path p, p1 = _pc.graph_search(_g, in, out);
 	p.reserve(p1.size() + 2);
 	p.push_back(pdef.start);
 	p.insert(p.end(), p1.begin(), p1.end());
