@@ -72,6 +72,13 @@ struct default_interpolator {
 	Path operator()(MapRef map, PathRef path);
 };
 
+struct bug2_interpolator {
+	bug2_interpolator(double step = 2);
+	Path operator()(MapRef map, PathRef path);
+private:
+	double _step;
+};
+
 struct potential_field_interpolator {
 	potential_field_interpolator(double eps = 10);
 	Path operator()(MapRef map, PathRef path);
