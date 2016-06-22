@@ -57,8 +57,13 @@ namespace mpel {
 			}
 		}
 
-		for (size_t i = idx_a; i != idx_b; i = (i+1)%wall.size())
-			p.push_back(wall[i]);
+		//if (std::abs((int)idx_a - (int)idx_b) > wall.size()/2)
+			for (size_t i = idx_a; i != idx_b; i = (i+1)%wall.size())
+				p.push_back(wall[i]);
+		//else
+			//for (size_t i = idx_a; i != idx_b; i = (i-1)%wall.size())
+				//p.push_back(wall[i]);
+
 		return p;
 	}
 
@@ -69,7 +74,7 @@ namespace mpel {
 		// calculate contours of the map
 		cv::Mat m = map.clone();
 		std::vector<std::vector<Point> > contours;
-		cv::findContours(m, contours, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE);
+		cv::findContours(m, contours, CV_RETR_LIST, CV_CHAIN_APPROX_NONE);
 
 		for (size_t i = 0; i < path.size() - 1; ++i) {
 			Segment s(path[i], path[i+1]);
