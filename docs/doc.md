@@ -129,9 +129,27 @@ This header file contains definitions of all the pre-built components
 provided with the library. The section is divided into related sections.
 
 ### Graph Builders
+The library contains following graph builders
+
+- `default_graph_builder`
+- `voronoi_graph_builder`
+- `probabilistic_graph_builder`
 
 ### Graph Searches
+The library contains the following graph search algorithms
+
+- `Dijkstra search`
+- `A* search`
+- `Breadth First search`
 
 ### Interpolators
+MPEL Contains the following interpolators
+
+- `Bug2 Inpterpolator`
 
 ### Planner Configs
+MPEL provides pre-built planner configurations for the following planners
+
+- `Voronoi roadmap planner`
+- `Probabilistic Roadmap planner`
+
