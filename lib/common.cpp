@@ -19,6 +19,25 @@ double distance(PointRef a, PointRef b) {
 	return sqrt(dx * dx + dy * dy);
 }
 
+double distance(PointRef p, SegmentRef s) {
+	double len = distance(s.p0, s.p1);
+	double cross = p.x*(s.p1.y-s.p0.y) - p.y*(s.p1.x-s.p0.x) + \
+				   (s.p1.x*s.p0.y - s.p0.x*s.p1.y);
+	return std::abs(cross/len);
+}
+
+double distance(SegmentRef s, PointRef p) {
+	return distance(p, s);
+}
+
+bool on_segment(SegmentRef s, PointRef p) {
+	double d1 = distance(s.p0, p);
+	double d2 = distance(p, s.p1);
+	double d  = distance(s.p0, s.p1);
+	double delta = std::abs(d1 + d2 - d);
+	return delta < 3.;
+}
+
 bool is_collision(MapRef map, PointRef pt) {
 	if (pt.x >= map.cols or pt.x < 0) return true;
 	if (pt.y >= map.rows or pt.y < 0) return true;
