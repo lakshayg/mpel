@@ -27,6 +27,7 @@ std::vector<Segment> get_map_segments(MapRef map, double eps = 10);
 
 Path subdivide_path(PathRef path, double len = 40);
 
+Point random_free_space_point(const Map& map);
 Point mark_point(const Workspace& ws);
 }
 #endif

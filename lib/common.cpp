@@ -4,6 +4,9 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <iostream>
+#include <random>
+
+std::random_device _mpel_random_device;
 
 namespace mpel {
 
@@ -55,6 +58,18 @@ bool is_collision(MapRef map, SegmentRef s) {
 		if (is_collision(map, p)) return true;
 	}
 	return false;
+}
+
+// return a random point from the free space
+Point random_free_space_point(const Map& map) {
+	std::uniform_int_distribution<int> randx(0, map.rows);
+	std::uniform_int_distribution<int> randy(0, map.cols);
+	Point pt;
+	do {
+		pt.x = randx(_mpel_random_device);
+		pt.y = randy(_mpel_random_device);
+	} while (is_collision(map, pt));
+	return pt;
 }
 
 Path div(PathRef path) {
