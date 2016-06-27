@@ -37,6 +37,34 @@ procedure dijkstra_search(Graph g, Point in, Point out):
 ```
 
 ### Breadth First Search
+```
+procedure breadth_first_search(Graph g, Point in, Point out):
+
+	for each vertex v in graph:
+		visited[v] <- FALSE
+		parent[v] <- UNDEFINED
+
+	create an empty queue Q
+	Q.push(in)
+
+	visited[in] <- TRUE
+	parent[in] <- in
+
+	while Q is not empty:
+		curr = Q.pop()
+
+		for n in neighbors of curr:
+			if visited[n] == FALSE:
+				visited[n] <- TRUE
+				parent[n] <- curr
+				Q.push(n)
+
+				if (curr == out):
+					reconstruct the path to in
+					return path
+	return "no path found"
+```
+
 ### A\* Search
 
 ## Graph Builder
