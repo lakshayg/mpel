@@ -203,6 +203,33 @@ ones.</p>
 </code></pre>
 
 <h3 id="breadth-first-search">Breadth First Search</h3>
+<pre><code>procedure breadth_first_search(Graph g, Point in, Point out):
+
+    for each vertex v in graph:
+        visited[v] &lt;- FALSE
+        parent[v] &lt;- UNDEFINED
+
+    create an empty queue Q
+    Q.push(in)
+
+    visited[in] &lt;- TRUE
+    parent[in] &lt;- in
+
+    while Q is not empty:
+        curr = Q.pop()
+
+        for n in neighbors of curr:
+            if visited[n] == FALSE:
+                visited[n] &lt;- TRUE
+                parent[n] &lt;- curr
+                Q.push(n)
+
+                if (curr == out):
+                    reconstruct the path to in
+                    return path
+    return &quot;no path found&quot;
+</code></pre>
+
 <h3 id="a42-search">A* Search</h3>
 <h2 id="graph-builder">Graph Builder</h2>
 <h3 id="probabiistic-graph-builder">Probabiistic Graph Builder</h3>
