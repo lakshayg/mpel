@@ -118,6 +118,31 @@ This datatype is used to specify the planning problem and pass it to
 the motion planner.
 
 ### Utility Functions
+MPEL provides several utility functions which are useful when building
+your own algorithms. The functions provided are:
+
+- `Map load_map_from_image(std::string filename)` - load a map from a
+bitmap image
+- `double distance(PointRef a, PointRef b)` - compute distances between
+two points
+- `double distance(SegmentRef s, PointRef p)` - compute perpendicular
+distance between a segment and a point
+- `bool is_collision(MapRef map, PointRef pt)` - check if a point is
+colliding in the given workspace
+- `bool is_collision(MapRef map, SegmentRef s)` - check if a segment is
+colliding in the given map
+- `bool on_segment(SegmentRef s, PointRef p)` - Check if a point lies on
+a segment. The function allows for some error margin in the calculation
+- `std::vector<Segment> get_map_segments(MapRef map, double eps = 10)` -
+approximates the obstacles in the map using a minimax approximation which
+is goverened by the parameter `eps`. The function returns a vector
+containing the segments
+- `Path subdivide_path(PathRef path, double len = 40)` - divides a given
+path into segments of uniform size whose lengths are equal to `len`
+- `Point random_free_space_point(MapRef map)` - picks up a random
+non-colliding path from the given map
+- `Point mark_point(const Workspace& ws)` - opens up a window and allows the
+user to select a point by clicking on the window.
 
 ### Motion Planner
 
@@ -145,7 +170,7 @@ The library contains the following graph search algorithms
 ### Interpolators
 MPEL Contains the following interpolators
 
-- `Bug2 Inpterpolator`
+- `Bug2 Interpolator`
 
 ### Planner Configs
 MPEL provides pre-built planner configurations for the following planners
