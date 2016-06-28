@@ -269,6 +269,32 @@ vertices present in the graph.</li>
 <p>This datatype is used to specify the planning problem and pass it to
 the motion planner.</p>
 <h3 id="utility-functions">Utility Functions</h3>
+<p>MPEL provides several utility functions which are useful when building
+your own algorithms. The functions provided are:</p>
+<ul>
+<li><code>Map load_map_from_image(std::string filename)</code> - load a map from a
+bitmap image</li>
+<li><code>double distance(PointRef a, PointRef b)</code> - compute distances between
+two points</li>
+<li><code>double distance(SegmentRef s, PointRef p)</code> - compute perpendicular
+distance between a segment and a point</li>
+<li><code>bool is_collision(MapRef map, PointRef pt)</code> - check if a point is
+colliding in the given workspace</li>
+<li><code>bool is_collision(MapRef map, SegmentRef s)</code> - check if a segment is
+colliding in the given map</li>
+<li><code>bool on_segment(SegmentRef s, PointRef p)</code> - Check if a point lies on
+a segment. The function allows for some error margin in the calculation</li>
+<li><code>std::vector&lt;Segment&gt; get_map_segments(MapRef map, double eps = 10)</code> -
+approximates the obstacles in the map using a minimax approximation which
+is goverened by the parameter <code>eps</code>. The function returns a vector
+containing the segments</li>
+<li><code>Path subdivide_path(PathRef path, double len = 40)</code> - divides a given
+path into segments of uniform size whose lengths are equal to <code>len</code></li>
+<li><code>Point random_free_space_point(MapRef map)</code> - picks up a random
+non-colliding path from the given map</li>
+<li><code>Point mark_point(const Workspace&amp; ws)</code> - opens up a window and allows the
+user to select a point by clicking on the window.</li>
+</ul>
 <h3 id="motion-planner">Motion Planner</h3>
 <h3 id="visualization">Visualization</h3>
 <h2 id="mpelbuiltinshpp"><strong><code>mpel/builtins.hpp</code></strong></h2>
@@ -291,7 +317,7 @@ provided with the library. The section is divided into related sections.</p>
 <h3 id="interpolators">Interpolators</h3>
 <p>MPEL Contains the following interpolators</p>
 <ul>
-<li><code>Bug2 Inpterpolator</code></li>
+<li><code>Bug2 Interpolator</code></li>
 </ul>
 <h3 id="planner-configs">Planner Configs</h3>
 <p>MPEL provides pre-built planner configurations for the following planners</p>
