@@ -44,7 +44,8 @@ Path Planner::solve(ProblemDefinition pdef) {
 	p.push_back(pdef.start);
 	p.insert(p.end(), p1.begin(), p1.end());
 	p.push_back(pdef.goal);
-	return _pc.interpolator(_ws.map, p);
+	Path ret = _pc.interpolator(_ws.map, p);
+	return ret;
 }
 
 }

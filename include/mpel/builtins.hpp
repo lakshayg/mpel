@@ -80,10 +80,8 @@ private:
 };
 
 struct potential_field_interpolator {
-	potential_field_interpolator(double eps = 10);
+	potential_field_interpolator();
 	Path operator()(MapRef map, PathRef path);
-private:
-	double _eps;
 };
 
 // Planner configs
