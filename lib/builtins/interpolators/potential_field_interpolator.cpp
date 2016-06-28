@@ -78,7 +78,7 @@ cv::Mat repulsive_potential(MapRef m, double d = 250, double c = 250) {
  * x and y directions respectively. n specifies the size of
  * the square neighborhood to consider
  */
-Point max_descent_direction(cv::Mat m, PointRef pt, int n = 15) {
+Point max_descent_direction(cv::Mat m, PointRef pt, int n = 2) {
 	double min_grad = 0;
 	Point dir = Point(0, 0);
 	double val = m.at<double>(pt);
@@ -126,19 +126,18 @@ Path potential_field_interpolator::operator()(MapRef map, PathRef _path) {
 	Path p;
 	Point curr = path.front();
 	cv::Mat rep = repulsive_potential(map);
-	/* interpolate all the segments in the path and return the result */
-	for (size_t i = 1; i < path.size(); ++i) {
-		Path tmp;
-		Point goal = path[i];
-		cv::Mat attr = attractive_potential(map.rows, map.cols, goal);
-		if (i == path.size() - 1)
-			tmp = interpolate_segment(curr, goal, attr, rep);
-		else
-			tmp = interpolate_segment(curr, goal, attr, rep, 3);
+	
+	size_t tmp_goal = 1;
+	while (tmp_goal < path.size()) {
+		// find a temporary goal point in the map
+		while (is_collision(map, path[tmp_goal]) and tmp_goal < path.size() - 1) tmp_goal++;
+		cv::Mat attr = attractive_potential(map.rows, map.cols, path[tmp_goal]);
+		Path tmp = interpolate_segment(curr, path[tmp_goal], attr, rep);
 		p.insert(p.end(), tmp.begin(), tmp.end());
 		curr = p.back();
+		tmp_goal++;
 	}
-	p.push_back(_path.back());
+	p.push_back(path.back());
 
 	return p;
 }
