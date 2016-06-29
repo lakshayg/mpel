@@ -6,11 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Lakshay Garg">
-        <link rel="canonical" href="https://lakshayg.github.io/mpel/algos/">
+        <link rel="canonical" href="https://lakshayg.github.io/mpel/gallery/">
         <link rel="shortcut icon" href="../favicon.ico">
         
 
-	<title>Algorithms - MPEL</title>
+	<title>Gallery - MPEL</title>
 
         <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
@@ -57,7 +57,7 @@
             
             
             
-                <li class="dropdown active">
+                <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Primer <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
@@ -68,8 +68,8 @@
 
                     
                         
-<li class="active">
-    <a href="./">Algorithms</a>
+<li >
+    <a href="../algos/">Algorithms</a>
 </li>
 
                     
@@ -105,8 +105,8 @@
             
             
             
-                <li >
-                    <a href="../gallery/">Gallery</a>
+                <li class="active">
+                    <a href="./">Gallery</a>
                 </li>
             
             
@@ -132,12 +132,12 @@
                     </a>
                 </li>
                 <li >
-                    <a rel="next" href="../basics/">
+                    <a rel="next" href="../tut/">
                         <i class="fa fa-arrow-left"></i> Previous
                     </a>
                 </li>
                 <li >
-                    <a rel="prev" href="../start/">
+                    <a rel="prev" href="../trouble/">
                         Next <i class="fa fa-arrow-right"></i>
                     </a>
                 </li>
@@ -160,88 +160,29 @@
             <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
-        <li class="main active"><a href="#algorithms">Algorithms</a></li>
-        
-            <li><a href="#graph-search">Graph Search</a></li>
-        
-            <li><a href="#graph-builder">Graph Builder</a></li>
-        
-            <li><a href="#interpolator">Interpolator</a></li>
+        <li class="main active"><a href="#gallery">Gallery</a></li>
         
     
     </ul>
 </div></div>
             <div class="col-md-9" role="main">
 
-<h1 id="algorithms">Algorithms</h1>
-<p>This page is meant to describe the various algorithm
-implementations used in the library and possible ways
-to improve these implementations. These have been
-provided to help learners understand the algorithms
-and help contributors in improving the implementation
-by replacing the inefficient algorithms with efficient
-ones.</p>
-<h2 id="graph-search">Graph Search</h2>
-<h3 id="dijkstras-search">Dijkstra's Search</h3>
-<pre><code>procedure dijkstra_search(Graph g, Point in, Point out):
-
-    for each vertex v in Graph:
-        dist[v] &lt;- INFINITY
-        parent[v] &lt;- UNDEFINED
-    dist[in] = 0
-
-    while True:
-        curr = vertex with min dist  # uses sorting, can be improved by using a heap
-        if no vertex in Graph:
-            return &quot;No path found&quot;
-
-        if curr is out:
-            construct path from list of parents
-            return path
-
-        for n in neighbors of curr:
-            d = dist[curr] + edge_weight(curr, n)
-            if d &lt; dist[n]:
-                parent[n] = curr
-                dist[n] = d
-
-        delete curr from Graph
-</code></pre>
-
-<h3 id="breadth-first-search">Breadth First Search</h3>
-<pre><code>procedure breadth_first_search(Graph g, Point in, Point out):
-
-    for each vertex v in graph:
-        visited[v] &lt;- FALSE
-        parent[v] &lt;- UNDEFINED
-
-    create an empty queue Q
-    Q.push(in)
-
-    visited[in] &lt;- TRUE
-    parent[in] &lt;- in
-
-    while Q is not empty:
-        curr = Q.pop()
-
-        for n in neighbors of curr:
-            if visited[n] == FALSE:
-                visited[n] &lt;- TRUE
-                parent[n] &lt;- curr
-                Q.push(n)
-
-                if (curr == out):
-                    reconstruct the path to in
-                    return path
-    return &quot;no path found&quot;
-</code></pre>
-
-<h3 id="a42-search">A* Search</h3>
-<h2 id="graph-builder">Graph Builder</h2>
-<h3 id="probabiistic-graph-builder">Probabiistic Graph Builder</h3>
-<h3 id="voronoi-graph-builder">Voronoi Graph Builder</h3>
-<h2 id="interpolator">Interpolator</h2>
-<h3 id="potential-field-interpolator">Potential Field Interpolator</h3></div>
+<h1 id="gallery">Gallery</h1>
+<p>This page shows some cases of path planning using MPEL</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="../img/001.png" width=350px/><br></td>
+<td>PRM, dijkstra's search, potential field interpolator</td>
+</tr>
+</tbody>
+</table></div>
         </div>
 
         <footer class="col-md-12">

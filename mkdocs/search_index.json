@@ -241,6 +241,16 @@
             "title": "Using a pre-built planner"
         },
         {
+            "location": "/gallery/",
+            "text": "Gallery\n\n\nThis page shows some cases of path planning using MPEL\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPRM, dijkstra's search, potential field interpolator",
+            "title": "Gallery"
+        },
+        {
+            "location": "/gallery/#gallery",
+            "text": "This page shows some cases of path planning using MPEL            PRM, dijkstra's search, potential field interpolator",
+            "title": "Gallery"
+        },
+        {
             "location": "/trouble/",
             "text": "Troubleshooting",
             "title": "Troubleshooting"
