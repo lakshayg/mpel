@@ -82,9 +82,11 @@ Point max_descent_direction(cv::Mat m, PointRef pt, int n = 2) {
 	double min_grad = 0;
 	Point dir = Point(0, 0);
 	double val = m.at<double>(pt);
+	cv::Rect r(0, 0, m.cols, m.rows);
 	for (int i = -n; i <= n; ++i) {
 		for (int j = -n; j <= n; ++j) {
 			Point tmp = Point(j,i);
+			if (not r.contains(pt+tmp)) continue;
 			double grad = (m.at<double>(pt+tmp) - val)/norm(tmp);
 			if (grad <= min_grad) {
 				min_grad = grad;
@@ -111,8 +113,7 @@ Path interpolate_segment(Point in, Point out, const cv::Mat& attr, const cv::Mat
 		 * returns the partially interpolated path
 		 */
 		if (dir.x == 0 and dir.y == 0) {
-			std::cout << "Stuck in a local minima :O" << std::endl;
-			p.push_back(out);
+			std::cout << "Stuck in a local minima :(" << std::endl;
 			return p;
 		}
 		p.push_back(curr + dir);
@@ -122,7 +123,7 @@ Path interpolate_segment(Point in, Point out, const cv::Mat& attr, const cv::Mat
 }
 
 Path potential_field_interpolator::operator()(MapRef map, PathRef _path) {
-	Path path = subdivide_path(_path, 80);
+	Path path = subdivide_path(_path, 10);
 	Path p;
 	Point curr = path.front();
 	cv::Mat rep = repulsive_potential(map);
