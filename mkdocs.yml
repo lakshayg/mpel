@@ -12,6 +12,7 @@ pages:
     - 'Getting Started': start.md
     - 'API Reference': doc.md
     - 'Tutorials': tut.md
+- Gallery: gallery.md
 - Troubleshooting: trouble.md
 - Contact Us: contact.md
 site_favicon: favicon.ico
