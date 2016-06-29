@@ -62,8 +62,8 @@ bool is_collision(MapRef map, SegmentRef s) {
 
 // return a random point from the free space
 Point random_free_space_point(const Map& map) {
-	std::uniform_int_distribution<int> randx(0, map.rows);
-	std::uniform_int_distribution<int> randy(0, map.cols);
+	std::uniform_int_distribution<int> randx(0, map.cols);
+	std::uniform_int_distribution<int> randy(0, map.rows);
 	Point pt;
 	do {
 		pt.x = randx(_mpel_random_device);

@@ -13,15 +13,11 @@ Graph probabilistic_graph_builder::operator()(MapRef map) {
 	size_t num = (_n > 0 ? _n : (map.rows * map.cols) / (50*50));
 
 	// sample random configurations in the graph
-	std::uniform_int_distribution<int> rand_x(0, map.rows);
-    std::uniform_int_distribution<int> rand_y(0, map.cols);
-    std::random_device rdx, rdy;
-
 	std::vector<Point> config;
 	config.reserve(num);
 	while (config.size() < num) {
-		Point pt = Point(rand_x(rdx), rand_y(rdy));
-		if (not is_collision(map, pt)) config.push_back(pt);
+		Point pt = random_free_space_point(map);
+		config.push_back(pt);
 	}
 
 	Graph g;
