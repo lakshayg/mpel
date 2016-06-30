@@ -54,7 +54,7 @@ Path Planner::solve(ProblemDefinition pdef) {
 	// find point closest to given points in graph
 	if (is_collision(_ws.map, pdef.start)) return Path();
 	if (is_collision(_ws.map, pdef.goal)) return Path();
-	Path p1, p;
+	Path p;
 	Point in, out;
 
 	// find some vertices in graph closest to start and goal and connect them
@@ -71,12 +71,8 @@ Path Planner::solve(ProblemDefinition pdef) {
 		if (not is_collision(_ws.map, s2))
 			tmp_g.add_edge(pdef.goal, goal_neigh[i], distance(pdef.goal, goal_neigh[i]));
 	}
-	p1 = _pc.graph_search(tmp_g, pdef.start, pdef.goal);
+	p = _pc.graph_search(tmp_g, pdef.start, pdef.goal);
 
-	p.reserve(p1.size() + 2);
-	p.push_back(pdef.start);
-	p.insert(p.end(), p1.begin(), p1.end());
-	p.push_back(pdef.goal);
 	Path ret = _pc.interpolator(_ws.map, p);
 	return ret;
 }
