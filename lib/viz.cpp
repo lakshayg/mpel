@@ -8,7 +8,7 @@ namespace mpel {
 size_t View::nviews = 0;
 
 View::View(std::string name) : _name(name) {
-	cv::namedWindow(_name, 0);
+	cv::namedWindow(_name, 1);
 	update();
 	nviews++;
 }
