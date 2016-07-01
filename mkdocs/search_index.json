@@ -242,12 +242,12 @@
         },
         {
             "location": "/gallery/",
-            "text": "Gallery\n\n\nThis page shows some cases of path planning using MPEL\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPRM, dijkstra's search, potential field interpolator",
+            "text": "Gallery\n\n\nThis page shows some cases of path planning using MPEL\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPRM, dijkstra's search, potential field interpolator\n\n\n\n\n\n\n\n\nVoronoi graph, A* search, potential field interpolator",
             "title": "Gallery"
         },
         {
             "location": "/gallery/#gallery",
-            "text": "This page shows some cases of path planning using MPEL            PRM, dijkstra's search, potential field interpolator",
+            "text": "This page shows some cases of path planning using MPEL            PRM, dijkstra's search, potential field interpolator     Voronoi graph, A* search, potential field interpolator",
             "title": "Gallery"
         },
         {
