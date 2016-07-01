@@ -106,18 +106,21 @@ Path interpolate_segment(Point in, Point out, const cv::Mat& attr, const cv::Mat
 	cv::Mat pot_field = attr + rep;
 	Point curr = in;
 	p.push_back(curr);
+	Point old_dir = Point(0, 0);
 	while (sqr_dist(curr, out) > d*d) {
 		Point dir = max_descent_direction(pot_field, curr);
-		/* highly improbable but print a debug message just in case
+
+		/* highly probable even in simple environments, debug message just in case
 		 * we get stuck in a local minima and can't decide on the direction
 		 * returns the partially interpolated path
 		 */
-		if (dir.x == 0 and dir.y == 0) {
+		if (dir + old_dir == Point(0,0)) {
 			std::cout << "Stuck in a local minima :(" << std::endl;
 			return p;
 		}
 		p.push_back(curr + dir);
 		curr = curr + dir;
+		old_dir = dir;
 	}
 	return p;
 }
