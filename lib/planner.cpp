@@ -73,7 +73,7 @@ Path Planner::solve(ProblemDefinition pdef) {
 	}
 	p = _pc.graph_search(tmp_g, pdef.start, pdef.goal);
 
-	Path ret = _pc.interpolator(_ws.map, p);
+	Path ret = (p.size() > 0 ? _pc.interpolator(_ws.map, p) : p);
 	return ret;
 }
 

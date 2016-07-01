@@ -12,9 +12,11 @@ int main(int argc, char **argv) {
 	}
 
 	Planner::Config pc;
-	pc.graph_search = default_search();
-	pc.graph_builder = default_graph_builder();
+	pc.graph_search = dijkstra_search();
+	pc.graph_builder = voronoi_graph_builder(); //probabilistic_graph_builder();
+	pc.graph_builder = probabilistic_graph_builder(200);
 	pc.interpolator = potential_field_interpolator();
+	//pc.interpolator = default_interpolator();
 
 	Planner p(pc);
 	Workspace ws;
@@ -22,13 +24,14 @@ int main(int argc, char **argv) {
 	p.load_workspace(ws);
 
 	ProblemDefinition pdef;
-	pdef.start = Point(50,50);
-	pdef.goal = Point(400,400);
+	pdef.start = mark_point(ws);
+	pdef.goal = mark_point(ws);
 
 	Path path = p.solve(pdef);
 
 	View v;
 	v.add_layer(p);
+	//v.add_layer(ws.map);
 	v.add_layer(pdef);
 	v.add_layer(path);
 	View::stay();
