@@ -7,31 +7,24 @@ Graph::Graph() : nvertex(0) {}
 
 Graph::~Graph() {}
 
+Graph::vertex_t Graph::add_vertex(Point pt) {
+	vertex_t p;
+	auto v = vdesc.find(pt); // check if pt is already present
+	if (v == vdesc.end()) { // point not present
+		vdesc.insert(std::make_pair(pt, nvertex));  // insert in descriptor list
+		vertices.push_back(pt); p = nvertex;
+		allocate_vertex(); // increments nvertex
+	}
+	else {
+		p = v->second;
+	}
+	return p;
+}
+
 void Graph::add_edge(Point pt1, Point pt2, double weight) {
 	vertex_t p1, p2;
-
-	// check if pt1 is already present
-	// if not then allocate memory for that point
-	auto v1 = vdesc.find(pt1);
-	if (v1 == vdesc.end()) { // if point is not present
-		vdesc.insert(std::make_pair(pt1, nvertex));  // insert in descriptor list
-		vertices.push_back(pt1); p1 = nvertex;
-		allocate_vertex(); // increments nvertex
-	} else {
-		p1 = v1->second;
-	}
-
-	// check if pt2 is already present
-	// if not then allocate memory for that point
-	auto v2 = vdesc.find(pt2);
-	if (v2 == vdesc.end()) { // if point is not present
-		vdesc.insert(std::make_pair(pt2, nvertex));  // insert in descriptor list
-		vertices.push_back(pt2); p2 = nvertex;
-		allocate_vertex(); // increments nvertex
-	} else {
-		p2 = v2->second;
-	}
-
+	p1 = add_vertex(pt1);
+	p2 = add_vertex(pt2);
 	// connect the vertices and add cost
 	g[p1][p2] = weight;
 	g[p2][p1] = weight;

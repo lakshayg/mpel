@@ -43,6 +43,7 @@ public:
 
 	Graph();
 	~Graph();
+	vertex_t add_vertex(Point pt);
 	void add_edge(Point pt1, Point pt2, double weight = 0);
 	size_t descriptor(PointRef pt) const;
 	size_t num_vertices() const;
