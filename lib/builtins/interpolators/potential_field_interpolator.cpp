@@ -131,17 +131,25 @@ Path potential_field_interpolator::operator()(MapRef map, PathRef _path) {
 	Point curr = path.front();
 	cv::Mat rep = repulsive_potential(map);
 	
-	size_t tmp_goal = 1;
+	size_t tmp_goal = 1; // index of the temporary goal location
 	while (tmp_goal < path.size()) {
 		// find a temporary goal point in the map
 		while (is_collision(map, path[tmp_goal]) and tmp_goal < path.size() - 1) tmp_goal++;
 		cv::Mat attr = attractive_potential(map.rows, map.cols, path[tmp_goal]);
-		Path tmp = interpolate_segment(curr, path[tmp_goal], attr, rep);
+		double d = (tmp_goal == path.size() - 1 ? 0 : 10);
+		Path tmp = interpolate_segment(curr, path[tmp_goal], attr, rep, d);
 		p.insert(p.end(), tmp.begin(), tmp.end());
 		curr = p.back();
 		tmp_goal++;
 	}
-	p.push_back(path.back());
+	if (p.back() != path.back()) {
+		Segment s(p.back(), path.back());
+		if (not is_collision(map, s))
+			p.push_back(path.back());
+	}
+	if (p.back() != path.back()) {
+		std::cout << "Cannot recover from local minima, path not found" << std::endl;
+	}
 
 	return p;
 }
