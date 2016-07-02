@@ -115,7 +115,7 @@ Path interpolate_segment(Point in, Point out, const cv::Mat& attr, const cv::Mat
 		 * returns the partially interpolated path
 		 */
 		if (dir + old_dir == Point(0,0)) {
-			std::cout << "Stuck in a local minima :(" << std::endl;
+			// std::cout << "Stuck in a local minima :(" << std::endl;
 			return p;
 		}
 		p.push_back(curr + dir);
@@ -148,7 +148,7 @@ Path potential_field_interpolator::operator()(MapRef map, PathRef _path) {
 			p.push_back(path.back());
 	}
 	if (p.back() != path.back()) {
-		std::cout << "Cannot recover from local minima, path not found" << std::endl;
+		std::cout << "[potential_field_interpolator] Cannot recover from local minima, path not found" << std::endl;
 	}
 
 	return p;

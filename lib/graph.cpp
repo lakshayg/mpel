@@ -1,4 +1,6 @@
 #include "types.hpp"
+#include <queue>
+#include <iostream>
 
 namespace mpel {
 Graph::Graph() : nvertex(0) {}
@@ -59,6 +61,28 @@ double Graph::weight(PointRef a, PointRef b) const {
 
 const std::vector<Point>& Graph::vertex_list() const {
 	return vertices;
+}
+
+bool Graph::connected() const {
+	if (num_vertices() == 0) return true;
+	// check if the graph is connected by performing a BFS
+	std::queue<size_t> Q;
+	std::vector<bool> visited(num_vertices()); visited[0] = true;
+	size_t nvisited = 0;
+
+	Q.push(0);
+	while (not Q.empty()) {
+		nvisited++;
+		size_t curr = Q.front(); Q.pop();
+		for (size_t i = 0; i < num_vertices(); ++i) {
+			if (weight(curr, i) < 0) continue; // not connected
+			else if (not visited[i]) {
+				visited[i] = true;
+				Q.push(i);
+			}
+		}
+	}
+	return nvisited == num_vertices();
 }
 
 void Graph::allocate_vertex() {

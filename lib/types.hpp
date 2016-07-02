@@ -50,7 +50,7 @@ public:
 	double weight(PointRef a, PointRef b) const;
 	double weight(size_t a, size_t b) const;
 	const std::vector<Point>& vertex_list() const;
-
+	bool connected() const;
 private:
 	std::vector<std::vector<double> > g;
 	std::vector<Point> vertices;
