@@ -44,7 +44,7 @@ cv::Mat attractive_potential(size_t rows, size_t cols, Point goal, double c = 25
  * d is the distance parameter used in constructing the repulsive potential
  * c is a constant scaling factor
  */
-cv::Mat repulsive_potential(MapRef m, double d = 250, double c = 250) {
+cv::Mat repulsive_potential(MapRef m, double d = 25, double c = 250) {
 	// compute the distance transform of this image
 	cv::Mat dt;
 	cv::distanceTransform(m, dt, CV_DIST_L2, CV_DIST_MASK_PRECISE);
