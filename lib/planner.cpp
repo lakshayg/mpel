@@ -1,67 +1,72 @@
 #include "planner.hpp"
-#include "types.hpp"
-#include "common.hpp"
-#include <vector>
-#include <functional>
-#include <algorithm>
 #include "algorithms.hpp"
+#include "common.hpp"
+#include "types.hpp"
+#include <algorithm>
+#include <functional>
+#include <vector>
 
 namespace mpel {
 
-Planner::Planner(Planner::Config pc) : _pc(pc) {}
-
-void Planner::load_workspace(const Workspace& ws) {
-	_ws = ws;
-
-	// generate the roadmap
-	_g = _pc.graph_builder(_ws.map);
+Planner::Planner(Planner::Config pc)
+    : _pc(pc)
+{
 }
 
-GraphRef Planner::roadmap() const {
-	return _g;
+void Planner::load_workspace(const Workspace& ws)
+{
+    _ws = ws;
+
+    // generate the roadmap
+    _g = _pc.graph_builder(_ws.map);
 }
 
-MapRef Planner::map() const {
-	return _ws.map;
-}
+GraphRef Planner::roadmap() const { return _g; }
+
+MapRef Planner::map() const { return _ws.map; }
 
 struct dcomp {
-	Point _p;
-	dcomp(PointRef p) : _p(p) {}
-	bool operator()(PointRef a, PointRef b) {
-		double dx1 = a.x - _p.x;
-		double dy1 = a.y - _p.y;
-		double dx2 = b.x - _p.x;
-		double dy2 = b.y - _p.y;
-		return dx1*dx1+dy1*dy1 < dx2*dx2+dy2*dy2;
-	}
+    Point _p;
+    dcomp(PointRef p)
+        : _p(p)
+    {
+    }
+    bool operator()(PointRef a, PointRef b)
+    {
+        double dx1 = a.x - _p.x;
+        double dy1 = a.y - _p.y;
+        double dx2 = b.x - _p.x;
+        double dy2 = b.y - _p.y;
+        return dx1 * dx1 + dy1 * dy1 < dx2 * dx2 + dy2 * dy2;
+    }
 };
 
-Path Planner::solve(ProblemDefinition pdef) {
-	// find point closest to given points in graph
-	if (is_collision(_ws.map, pdef.start)) return Path();
-	if (is_collision(_ws.map, pdef.goal)) return Path();
-	Path p;
-	Point in, out;
+Path Planner::solve(ProblemDefinition pdef)
+{
+    // find point closest to given points in graph
+    if (is_collision(_ws.map, pdef.start)) return Path();
+    if (is_collision(_ws.map, pdef.goal)) return Path();
+    Path p;
+    Point in, out;
 
-	// find some vertices in graph closest to start and goal and connect them
-	Graph tmp_g = _g;
-	size_t nneigh = std::min((size_t) 5, tmp_g.vertex_list().size());
-	std::vector<Point> start_neigh = k_best(tmp_g.vertex_list().begin(), tmp_g.vertex_list().end(), nneigh, dcomp(pdef.start));
-	std::vector<Point> goal_neigh = k_best(tmp_g.vertex_list().begin(), tmp_g.vertex_list().end(), nneigh, dcomp(pdef.goal));
-	for (size_t i = 0; i < nneigh; ++i) {
-		Segment s1 = Segment(pdef.start, start_neigh[i]);
-		if (not is_collision(_ws.map, s1))
-			tmp_g.add_edge(pdef.start, start_neigh[i], distance(pdef.start, start_neigh[i]));
+    // find some vertices in graph closest to start and goal and connect them
+    Graph tmp_g = _g;
+    size_t nneigh = std::min((size_t)5, tmp_g.vertex_list().size());
+    std::vector<Point> start_neigh
+        = k_best(tmp_g.vertex_list().begin(), tmp_g.vertex_list().end(), nneigh, dcomp(pdef.start));
+    std::vector<Point> goal_neigh
+        = k_best(tmp_g.vertex_list().begin(), tmp_g.vertex_list().end(), nneigh, dcomp(pdef.goal));
+    for (size_t i = 0; i < nneigh; ++i) {
+        Segment s1 = Segment(pdef.start, start_neigh[i]);
+        if (not is_collision(_ws.map, s1))
+            tmp_g.add_edge(pdef.start, start_neigh[i], distance(pdef.start, start_neigh[i]));
 
-		Segment s2 = Segment(pdef.goal, goal_neigh[i]);
-		if (not is_collision(_ws.map, s2))
-			tmp_g.add_edge(pdef.goal, goal_neigh[i], distance(pdef.goal, goal_neigh[i]));
-	}
-	p = _pc.graph_search(tmp_g, pdef.start, pdef.goal);
+        Segment s2 = Segment(pdef.goal, goal_neigh[i]);
+        if (not is_collision(_ws.map, s2)) tmp_g.add_edge(pdef.goal, goal_neigh[i], distance(pdef.goal, goal_neigh[i]));
+    }
+    p = _pc.graph_search(tmp_g, pdef.start, pdef.goal);
 
-	Path ret = (p.size() > 0 ? _pc.interpolator(_ws.map, p) : p);
-	return ret;
+    Path ret = (p.size() > 0 ? _pc.interpolator(_ws.map, p) : p);
+    return ret;
 }
-
 }

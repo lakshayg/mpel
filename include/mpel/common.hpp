@@ -7,9 +7,7 @@
 namespace mpel {
 
 struct UnimplementedException : public std::exception {
-	const char *what() const throw() {
-		return "Unimplemented Functionality";
-	}
+    const char* what() const throw() { return "Unimplemented Functionality"; }
 };
 
 Map load_map_from_image(std::string filename);
