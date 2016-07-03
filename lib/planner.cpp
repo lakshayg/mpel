@@ -4,6 +4,7 @@
 #include <vector>
 #include <functional>
 #include <algorithm>
+#include "algorithms.hpp"
 
 namespace mpel {
 
@@ -22,20 +23,6 @@ GraphRef Planner::roadmap() const {
 
 MapRef Planner::map() const {
 	return _ws.map;
-}
-
-template <typename Iter, typename Compare = std::less<typename Iter::value_type>>
-std::vector<typename Iter::value_type> ksmallest(Iter begin, Iter end, size_t k, Compare comp = Compare()) {
-	std::vector<typename Iter::value_type> out(begin, begin+k);
-	std::make_heap(out.begin(), out.end(), comp);
-	for (Iter it = begin+k; it != end; ++it) {
-		if (comp(*it, out.front())) {
-			std::pop_heap(out.begin(), out.end(), comp);
-			out.back() = *it;
-			std::push_heap(out.begin(), out.end(), comp);
-		}
-	}
-	return out;
 }
 
 struct dcomp {
@@ -60,8 +47,8 @@ Path Planner::solve(ProblemDefinition pdef) {
 	// find some vertices in graph closest to start and goal and connect them
 	Graph tmp_g = _g;
 	size_t nneigh = std::min((size_t) 5, tmp_g.vertex_list().size());
-	std::vector<Point> start_neigh = ksmallest(tmp_g.vertex_list().begin(), tmp_g.vertex_list().end(), nneigh, dcomp(pdef.start));
-	std::vector<Point> goal_neigh = ksmallest(tmp_g.vertex_list().begin(), tmp_g.vertex_list().end(), nneigh, dcomp(pdef.goal));
+	std::vector<Point> start_neigh = k_best(tmp_g.vertex_list().begin(), tmp_g.vertex_list().end(), nneigh, dcomp(pdef.start));
+	std::vector<Point> goal_neigh = k_best(tmp_g.vertex_list().begin(), tmp_g.vertex_list().end(), nneigh, dcomp(pdef.goal));
 	for (size_t i = 0; i < nneigh; ++i) {
 		Segment s1 = Segment(pdef.start, start_neigh[i]);
 		if (not is_collision(_ws.map, s1))
