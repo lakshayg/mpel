@@ -3,6 +3,7 @@
 #include <iostream>
 
 using namespace mpel;
+using namespace mpel::builtin;
 
 int main(int argc, char **argv) {
 
@@ -12,9 +13,9 @@ int main(int argc, char **argv) {
 	}
 
 	Planner::Config pc;
-	pc.graph_search = dijkstra_search();
-	pc.graph_builder = voronoi_graph_builder();
-	pc.interpolator = potential_field_interpolator();
+	pc.graph_search = graph_search::dijkstra();
+	pc.graph_builder = graph_builder::voronoi();
+	pc.interpolator = interpolator::potential_field();
 
 	Planner p(pc);
 	Workspace ws;
@@ -22,8 +23,8 @@ int main(int argc, char **argv) {
 	p.load_workspace(ws);
 
 	ProblemDefinition pdef;
-	pdef.start = Point(50,50);
-	pdef.goal = Point(400,400);
+	pdef.start = mark_point(ws);
+	pdef.goal = mark_point(ws);
 
 	Path path = p.solve(pdef);
 

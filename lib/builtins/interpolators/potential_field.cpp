@@ -5,10 +5,9 @@
 #include <mpel/builtins.hpp>
 
 namespace mpel {
-
-potential_field_interpolator::potential_field_interpolator() {
-	//throw UnimplementedException();
-}
+	namespace builtin {
+namespace interpolator {
+potential_field::potential_field() { }
 
 /* returns the norm of a point */
 double norm(PointRef p) {
@@ -125,7 +124,7 @@ Path interpolate_segment(Point in, Point out, const cv::Mat& attr, const cv::Mat
 	return p;
 }
 
-Path potential_field_interpolator::operator()(MapRef map, PathRef _path) {
+Path potential_field::operator()(MapRef map, PathRef _path) {
 	Path path = subdivide_path(_path, 10);
 	Path p;
 	Point curr = path.front();
@@ -153,5 +152,6 @@ Path potential_field_interpolator::operator()(MapRef map, PathRef _path) {
 
 	return p;
 }
-
+}
+}
 }

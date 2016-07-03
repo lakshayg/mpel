@@ -5,9 +5,11 @@
 #include "common.hpp"
 
 namespace mpel {
+namespace builtin {
+	namespace graph_search {
 // breadth first search
-breadth_first_search::breadth_first_search() {}
-Path breadth_first_search::operator()(GraphRef g, PointRef a, PointRef b) {
+breadth_first::breadth_first() {}
+Path breadth_first::operator()(GraphRef g, PointRef a, PointRef b) {
 	Path path;
 
 	size_t in = g.descriptor(a);
@@ -46,5 +48,7 @@ Path breadth_first_search::operator()(GraphRef g, PointRef a, PointRef b) {
 		}
 	}
 	return path;
+}
+}
 }
 }

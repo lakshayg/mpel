@@ -3,6 +3,7 @@
 #include <iostream>
 
 using namespace mpel;
+using namespace mpel::builtin;
 
 int main(int argc, char **argv) {
 
@@ -12,11 +13,9 @@ int main(int argc, char **argv) {
 	}
 
 	Planner::Config pc;
-	pc.graph_search = dijkstra_search();
-	pc.graph_builder = voronoi_graph_builder(); //probabilistic_graph_builder();
-	pc.graph_builder = probabilistic_graph_builder(200);
-	pc.interpolator = potential_field_interpolator();
-	//pc.interpolator = default_interpolator();
+	pc.graph_search = graph_search::a_star();
+	pc.graph_builder = graph_builder::voronoi();
+	pc.interpolator = interpolator::potential_field();
 
 	Planner p(pc);
 	Workspace ws;
@@ -31,7 +30,6 @@ int main(int argc, char **argv) {
 
 	View v;
 	v.add_layer(p);
-	//v.add_layer(ws.map);
 	v.add_layer(pdef);
 	v.add_layer(path);
 	View::stay();

@@ -5,10 +5,11 @@
 #include "common.hpp"
 
 namespace mpel {
-
+namespace builtin {
+namespace graph_search {
 // dijkstra search
-dijkstra_search::dijkstra_search() {}
-Path dijkstra_search::operator()(GraphRef g, PointRef a, PointRef b) {
+dijkstra::dijkstra() {}
+Path dijkstra::operator()(GraphRef g, PointRef a, PointRef b) {
 	Path path;
 
 	size_t in = g.descriptor(a);
@@ -55,5 +56,7 @@ Path dijkstra_search::operator()(GraphRef g, PointRef a, PointRef b) {
 		// delete current node
 		dist[curr] = -1;
 	}
+}
+}
 }
 }

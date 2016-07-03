@@ -7,6 +7,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
 
 find_package(OpenCV REQUIRED)
 
+include_directories(include/mpel)
 file(GLOB_RECURSE mpel_SRC "lib/*.cpp")
 file(GLOB_RECURSE mpel_HDR "lib/*.hpp")
 add_library(mpel ${mpel_SRC} ${mpel_HDR})

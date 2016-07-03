@@ -8,14 +8,18 @@ using namespace mpel::builtin;
 int main(int argc, char **argv) {
 
 	if (argc < 2) {
-		std::cerr << "Demo requires a map image filename" << std::endl;
+		std::cerr << "Demo requires a map image" << std::endl;
 		return -1;
 	}
 
+	Planner::Config pc;
+	pc.graph_search = graph_search::none();
+	pc.graph_builder = graph_builder::none();
+	pc.interpolator = interpolator::a_star();
+
+	Planner p(pc);
 	Workspace ws;
 	ws.map = load_map_from_image(argv[1]);
-
-	Planner p((voronoi_planner_config()));
 	p.load_workspace(ws);
 
 	ProblemDefinition pdef;
@@ -30,6 +34,7 @@ int main(int argc, char **argv) {
 	v.add_layer(path);
 	View::stay();
 
+	v.save();
+
 	return 0;
 }
-

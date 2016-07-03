@@ -6,9 +6,11 @@
 #include <iostream>
 
 namespace mpel {
+	namespace builtin {
+	namespace graph_builder {
 
-probabilistic_graph_builder::probabilistic_graph_builder(size_t n) : _n(n) {}
-Graph probabilistic_graph_builder::operator()(MapRef map) {
+probabilistic::probabilistic(size_t n) : _n(n) {}
+Graph probabilistic::operator()(MapRef map) {
 	// determine number of nodes
 	size_t num = (_n > 0 ? _n : (map.rows * map.cols) / (25*25));
 	Graph g;
@@ -46,5 +48,7 @@ Graph probabilistic_graph_builder::operator()(MapRef map) {
 		std::cout << "[voronoi_graph_builder] Extra nodes were added to make the graph connected (" << g.num_vertices() << ")" << std::endl;
 
 	return g;
+}
+}
 }
 }

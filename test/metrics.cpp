@@ -4,13 +4,14 @@
 #include "test.hpp"
 
 using namespace mpel;
+using namespace mpel::builtin;
 
 void metric_test() {
 	Point a(10, 10);
 	Point b(20, 3);
-	std::cout << "Euclidean Distance: " << euclidean_distance()(a, b) << std::endl;
-	std::cout << "Manhattan Distance: " << manhattan_distance()(a, b) << std::endl;
-	std::cout << "Chebychev Distance: " << chebychev_distance()(a, b) << std::endl;
+	std::cout << "Euclidean Distance: " << metric::euclidean()(a, b) << std::endl;
+	std::cout << "Manhattan Distance: " << metric::manhattan()(a, b) << std::endl;
+	std::cout << "Chebychev Distance: " << metric::chebychev()(a, b) << std::endl;
 }
 
 int main() {

@@ -3,6 +3,7 @@
 #include <iostream>
 
 using namespace mpel;
+using namespace mpel::builtin;
 
 int main(int argc, char **argv) {
 
@@ -12,9 +13,9 @@ int main(int argc, char **argv) {
 	}
 
 	Planner::Config pc;
-	pc.graph_search = dijkstra_search();
-	pc.graph_builder = probabilistic_graph_builder(100);
-	pc.interpolator = default_interpolator();
+	pc.graph_search = graph_search::dijkstra();
+	pc.graph_builder = graph_builder::probabilistic(100);
+	pc.interpolator = interpolator::none();
 
 	Planner p(pc);
 	Workspace ws;

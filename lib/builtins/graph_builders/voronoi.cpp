@@ -57,10 +57,11 @@ struct segment_traits<Segment> {
 }
 
 namespace mpel {
+	namespace builtin {
+namespace graph_builder {
+voronoi::voronoi(double eps) : _eps(eps) {}
 
-voronoi_graph_builder::voronoi_graph_builder(double eps) : _eps(eps) {}
-
-Graph voronoi_graph_builder::operator()(MapRef map) {
+Graph voronoi::operator()(MapRef map) {
 	// build voronoi diagram
 	voronoi_diagram<double> vd;
 	std::vector<Segment> segments = get_map_segments(map, _eps);
@@ -91,4 +92,5 @@ Graph voronoi_graph_builder::operator()(MapRef map) {
 	return g;
 }
 }
-
+}
+}

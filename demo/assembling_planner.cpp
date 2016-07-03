@@ -3,6 +3,7 @@
 #include <iostream>
 
 using namespace mpel;
+using namespace mpel::builtin;
 
 int main(int argc, char **argv) {
 
@@ -12,9 +13,9 @@ int main(int argc, char **argv) {
 	}
 
 	Planner::Config pc;
-	pc.graph_builder = voronoi_graph_builder();
-	pc.graph_search = breadth_first_search();
-	pc.interpolator = default_interpolator();
+	pc.graph_builder = graph_builder::voronoi();
+	pc.graph_search = graph_search::breadth_first();
+	pc.interpolator = interpolator::none();
 
 	Workspace ws;
 	ws.map = load_map_from_image(argv[1]);
@@ -23,8 +24,8 @@ int main(int argc, char **argv) {
 	p.load_workspace(ws);
 
 	ProblemDefinition pdef;
-	pdef.start = Point(50, 50);
-	pdef.goal = Point(340, 213);
+	pdef.start = mark_point(ws);
+	pdef.goal = mark_point(ws);
 
 	Path path = p.solve(pdef);
 

@@ -12,8 +12,10 @@
 #define LOG(msg) {std::cout << msg << std::endl;}
 
 namespace mpel {
+namespace builtin {
+	namespace graph_search {
 // a star search
-a_star_search::a_star_search() {}
+a_star::a_star() {}
 
 double dist(GraphRef g, size_t i, size_t j) {
 	Point a = g.vertex(i);
@@ -28,7 +30,7 @@ bool contains(const std::vector<size_t>& v, size_t e) {
 	return false;
 }
 
-Path a_star_search::operator()(GraphRef g, PointRef a, PointRef b) {
+Path a_star::operator()(GraphRef g, PointRef a, PointRef b) {
 	Path path;
 
 	size_t in = g.descriptor(a);
@@ -87,5 +89,7 @@ Path a_star_search::operator()(GraphRef g, PointRef a, PointRef b) {
 	}
 
 	return path;
+}
+}
 }
 }

@@ -5,96 +5,104 @@
 #include "planner.hpp"
 
 namespace mpel {
+	namespace builtin {
 
-// Distance metrics
-struct euclidean_distance {
-	double operator()(PointRef a, PointRef b);
-};
+		namespace metric {
+			// Distance metrics
+			struct euclidean {
+				double operator()(PointRef a, PointRef b);
+			};
 
-struct manhattan_distance {
-	double operator()(PointRef a, PointRef b);
-};
+			struct manhattan {
+				double operator()(PointRef a, PointRef b);
+			};
 
-struct chebychev_distance {
-	double operator()(PointRef a, PointRef b);
-};
+			struct chebychev {
+				double operator()(PointRef a, PointRef b);
+			};
+		}
 
+		// Graph builders
+		namespace graph_builder {
+			struct none {
+				none();
+				Graph operator()(MapRef map);
+			};
 
-// Graph builders
-struct default_graph_builder {
-	default_graph_builder();
-	Graph operator()(MapRef map);
-};
+			struct voronoi {
+				voronoi(double eps = 10);
+				Graph operator()(MapRef map);
+				private:
+				double _eps; // parameter for approximating the workspace
+			};
 
-struct voronoi_graph_builder {
-	voronoi_graph_builder(double eps = 10);
-	Graph operator()(MapRef map);
-private:
-	double _eps; // parameter for approximating the workspace
-};
+			struct probabilistic {
+				probabilistic(size_t n = 0);
+				Graph operator()(MapRef map);
+				private:
+				size_t _n; // number of nodes in the graph 0 => automatically determined
+			};
+		}
 
-struct probabilistic_graph_builder {
-	probabilistic_graph_builder(size_t n = 0);
-	Graph operator()(MapRef map);
-private:
-	size_t _n; // number of nodes in the graph 0 => automatically determined
-};
+		// Graph searches
+		namespace graph_search {
+			struct none { // does nothing meaningful (only for debugging)
+				none();
+				Path operator()(GraphRef g, PointRef a, PointRef b);
+			};
 
-// Grpah searches
-struct default_search { // does nothing meaningful (only for debugging)
-	default_search();
-	Path operator()(GraphRef g, PointRef a, PointRef b);
-};
+			struct a_star {
+				a_star();
+				Path operator()(GraphRef g, PointRef a, PointRef b);
+			};
 
-struct a_star_search {
-	a_star_search();
-	Path operator()(GraphRef g, PointRef a, PointRef b);
-};
+			struct dijkstra {
+				dijkstra();
+				Path operator()(GraphRef g, PointRef a, PointRef b);
+			};
 
-struct dijkstra_search {
-	dijkstra_search();
-	Path operator()(GraphRef g, PointRef a, PointRef b);
-};
+			struct breadth_first {
+				breadth_first();
+				Path operator()(GraphRef g, PointRef a, PointRef b);
+			};
+		}
 
-struct breadth_first_search {
-	breadth_first_search();
-	Path operator()(GraphRef g, PointRef a, PointRef b);
-};
+		// Interpolators
+		namespace interpolator {
+			struct none {
+				none();
+				Path operator()(MapRef map, PathRef path);
+			};
 
-struct depth_first_search {
-	depth_first_search();
-	Path operator()(GraphRef g, PointRef a, PointRef b);
-};
+			struct bug2 {
+				bug2(double step = 2);
+				Path operator()(MapRef map, PathRef path);
+				private:
+				double _step;
+			};
 
-// Interpolators
-struct default_interpolator {
-	default_interpolator();
-	Path operator()(MapRef map, PathRef path);
-};
+			struct potential_field {
+				potential_field();
+				Path operator()(MapRef map, PathRef path);
+			};
 
-struct bug2_interpolator {
-	bug2_interpolator(double step = 2);
-	Path operator()(MapRef map, PathRef path);
-private:
-	double _step;
-};
+			struct a_star {
+				a_star();
+				Path operator()(MapRef map, PathRef path);
+				private:
+				cv::Mat _dt; // distance transform image
+			};
+		}
 
-struct potential_field_interpolator {
-	potential_field_interpolator();
-	Path operator()(MapRef map, PathRef path);
-};
+		// Planner configs
+		struct voronoi_planner_config : Planner::Config {
+			voronoi_planner_config();
+		};
 
-// Planner configs
-struct default_planner_config : Planner::Config {
-	default_planner_config();
-};
-
-struct voronoi_planner_config : Planner::Config {
-	voronoi_planner_config();
-};
-
-struct PRM_planner_config : Planner::Config {
-	PRM_planner_config();
-};
+		struct PRM_planner_config : Planner::Config {
+			PRM_planner_config();
+		};
+	}
 }
 #endif
+

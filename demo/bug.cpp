@@ -3,6 +3,7 @@
 #include <iostream>
 
 using namespace mpel;
+using namespace mpel::builtin;
 
 int main(int argc, char **argv) {
 
@@ -12,9 +13,9 @@ int main(int argc, char **argv) {
 	}
 
 	Planner::Config pc;
-	pc.graph_search = default_search();
-	pc.graph_builder = default_graph_builder();
-	pc.interpolator = bug2_interpolator();
+	pc.graph_search = graph_search::none();
+	pc.graph_builder = graph_builder::none();
+	pc.interpolator = interpolator::bug2();
 
 	Planner p(pc);
 	Workspace ws;
@@ -22,8 +23,8 @@ int main(int argc, char **argv) {
 	p.load_workspace(ws);
 
 	ProblemDefinition pdef;
-	pdef.start = mark_point(ws);//Point(50,50);
-	pdef.goal = mark_point(ws);//Point(400,400);
+	pdef.start = mark_point(ws);
+	pdef.goal = mark_point(ws);
 
 	Path path = p.solve(pdef);
 
