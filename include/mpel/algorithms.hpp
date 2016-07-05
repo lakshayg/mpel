@@ -1,12 +1,20 @@
+/**
+ * \file algorithms.hpp
+ * \brief This file contains generic implementations of algorithms
+ *        used at various places in the library
+ */
 #ifndef MPEL_ALGORITHMS_HPP
 #define MPEL_ALGORITHMS_HPP
 
 #include <vector>
 
-/* function to select k best options from a container, the elements are compared
- * using a comparison function and the function returns a vector containing these elements
- * the  comparison function must return true whenever the first argument of the input is
- * better or same as the second argument
+/**
+ * \param begin Interator to the first element in the range
+ * \param end Iterator to the of the container
+ * \param k Number of elements to select
+ * \param comp A comparison function to select better of two elements. It must return
+ * true when the first argument is better than or same as second argument
+ * \return A vector containing k best items from the elements specified by iterators
  */
 template <typename Iter, typename Compare>
 std::vector<typename Iter::value_type> k_best(Iter begin, Iter end, size_t k, Compare comp)

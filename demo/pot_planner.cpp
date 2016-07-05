@@ -14,10 +14,12 @@ int main(int argc, char** argv)
         return -1;
     }
 
+	//! [Planner configuration]
     Planner::Config pc;
-    pc.graph_search = graph_search::dijkstra();
-    pc.graph_builder = graph_builder::voronoi();
+    pc.graph_search = graph_search::none();
+    pc.graph_builder = graph_builder::none();
     pc.interpolator = interpolator::potential_field();
+	//! [Planner configuration]
 
     Planner p(pc);
     Workspace ws;
