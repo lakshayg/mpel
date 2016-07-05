@@ -186,22 +186,6 @@ namespace builtin {
             potential_field();
             Path operator()(MapRef map, PathRef path);
         };
-
-		/**
-		 * \brief A* search on a fine grid using a heuristic function
-		 *
-		 * This algorithm is very similar to the artificial potential method and yeilds
-		 * similar results but can handle the cases of a local minima in potential. It
-		 * performs an A* search on extremely fine grid and uses a heuristic function that
-		 * incorporated the distance to nearest obstacle and distance to the goal point
-		 */
-        struct a_star {
-            a_star();
-            Path operator()(MapRef map, PathRef path);
-
-        private:
-            cv::Mat _dt; // distance transform image
-        };
     }
 
 	/// Planner configuration for Voronoi roadmap planner
