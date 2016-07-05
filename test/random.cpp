@@ -1,6 +1,7 @@
 #include "test.hpp"
 #include <iostream>
 #include <mpel/core.hpp>
+#include <mpel/viz.hpp>
 
 #define npoints 20
 

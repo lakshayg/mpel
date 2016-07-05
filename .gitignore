@@ -4,4 +4,3 @@
 *.bak
 build/**
 spike/**
-doc/**

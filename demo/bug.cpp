@@ -1,6 +1,7 @@
 #include <iostream>
 #include <mpel/builtins.hpp>
 #include <mpel/core.hpp>
+#include <mpel/viz.hpp>
 
 using namespace mpel;
 using namespace mpel::builtin;
