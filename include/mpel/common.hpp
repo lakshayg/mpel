@@ -1,3 +1,7 @@
+/**
+ * \file common.hpp
+ * \brief Contains helper functions which can be used as a part of larger algorithms.
+ */
 #ifndef MPEL_COMMON_H
 #define MPEL_COMMON_H
 #include "types.hpp"
