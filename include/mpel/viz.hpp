@@ -1,3 +1,10 @@
+/**
+ * \file viz.hpp
+ * \brief Class for visualizing inputs and outputs.
+ *
+ * This file defines the Viz class which is used for displaying
+ * maps, generated paths and points on the map
+ */
 #ifndef MPEL_VIZ_H
 #define MPEL_VIZ_H
 
@@ -17,21 +24,32 @@
 namespace mpel {
 class View {
 public:
+    /// Constructor for Viz class
     View(std::string name = "View: " + std::to_string(nviews));
 
+    /// Close the visualizer
     void close();
 
+    /// Clear all the entities displayed on visualizer
     void clear();
 
+    /// Add a map to the display
     void add_layer(MapRef map);
+    /// Add a point on the display
     void add_layer(PointRef pt);
+    /// Display the start and end points on display
     void add_layer(ProblemDefinition pdef);
+    /// Add a path to the display
     void add_layer(PathRef path);
+    /// Display a graph
     void add_layer(GraphRef graph);
+    /// Convenience function, displays the map, graph
     void add_layer(const Planner& p);
 
+    /// Save the current display to a file
     void save(std::string filename = "view.png");
 
+    /// Keep the program from exiting
     static void stay(char key = ' ');
 
 private:
