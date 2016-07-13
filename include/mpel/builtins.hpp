@@ -158,6 +158,34 @@ namespace builtin {
 
     /// This namespace contains all the builtin interpolators aka local planners
     namespace interpolator {
+
+        /**
+         * \brief The bug class for building bug based interpolators
+         *
+         * This class is used in all the bug based interpolators for sensing and
+         * moving along obstacles required in all bug based algorithms
+         */
+        class Bug {
+        public:
+            Bug(MapRef map, PointRef pos);   ///< Constructs a bug in a map at given location
+            void set_goal(PointRef pt);      ///< Sets the goal position of bug
+            bool goal_reached();             ///< Returns if the goal position has been reached
+            Point position();                ///< current position of the bug
+            int obstacle_distance();         ///< Returs the distance to the nearest obstacle
+            void follow_wall(int direction); ///< follow the wall in a given direction (+1, -1)
+            void move(PointRef dist);        ///< Moves the bug by a specified amount
+            void move(int dx, int dy);       ///< Moves the bug by a specified amount
+            bool move_to(PointRef pt);       ///< Move to a specified point in a straight line
+                                             ///< returns false if the path collides with some obstacle
+            bool goal_visible();             ///< Returns if the goal is visible from current location
+            Path path();                     ///< Returns the path followed by this bug
+        private:
+            cv::Mat m_dt; ///< Distance transform of the map
+            Path m_path;  ///< Trail of the bug
+            Point m_pos;  ///< current position of the bug
+            Point m_goal; ///< Goal position of the bug
+        };
+
         /**
          * \brief The empty interpolator.
          *
