@@ -3,8 +3,12 @@
 #include "common.hpp"
 #include "types.hpp"
 #include <algorithm>
+#include <chrono>
+#include <cstdio>
 #include <functional>
 #include <vector>
+
+using namespace std::chrono;
 
 namespace mpel {
 
@@ -18,7 +22,10 @@ void Planner::load_workspace(const Workspace& ws)
     _ws = ws;
 
     // generate the roadmap
+    auto t0 = high_resolution_clock::now();
     _g = _pc.graph_builder(_ws.map);
+    auto t1 = high_resolution_clock::now();
+    t_graph = duration_cast<microseconds>(t1 - t0).count();
 }
 
 GraphRef Planner::roadmap() const { return _g; }
@@ -64,9 +71,24 @@ Path Planner::solve(ProblemDefinition pdef)
         Segment s2 = Segment(pdef.goal, goal_neigh[i]);
         if (not is_collision(_ws.map, s2)) tmp_g.add_edge(pdef.goal, goal_neigh[i], distance(pdef.goal, goal_neigh[i]));
     }
-    p = _pc.graph_search(tmp_g, pdef.start, pdef.goal);
 
+    auto t0 = high_resolution_clock::now();
+    p = _pc.graph_search(tmp_g, pdef.start, pdef.goal);
+    auto t1 = high_resolution_clock::now();
+    t_search = duration_cast<microseconds>(t1 - t0).count();
+
+    t0 = high_resolution_clock::now();
     Path ret = (p.size() > 0 ? _pc.interpolator(_ws.map, p) : p);
+    t1 = high_resolution_clock::now();
+    t_interp = duration_cast<microseconds>(t1 - t0).count();
+
     return ret;
+}
+
+void Planner::show_stats() const
+{
+    printf("Graph builder: %9.3f ms\n", 1e-3 * t_graph);
+    printf("Graph search : %9.3f ms\n", 1e-3 * t_search);
+    printf("Interpolation: %9.3f ms\n", 1e-3 * t_interp);
 }
 }

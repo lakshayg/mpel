@@ -38,7 +38,12 @@ public:
     /// Returns the map that is a part of the workspace
     virtual MapRef map() const;
 
+    /// Print statistics about the planned path
+    void show_stats() const;
+
 private:
+    size_t t_graph, t_search, t_interp; ///< time taken for operations in us
+
     Config _pc;
 
     Graph _g;

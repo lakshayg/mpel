@@ -30,6 +30,8 @@ int main(int argc, char** argv)
 
     Path path = p.solve(pdef);
 
+    p.show_stats();
+
     View v;
     v.add_layer(p);
     v.add_layer(pdef);
