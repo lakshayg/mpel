@@ -1,7 +1,6 @@
 #ifndef MPEL_TYPES_H
 #define MPEL_TYPES_H
 
-#include <functional>
 #include <opencv2/core/core.hpp>
 #include <unordered_map>
 
@@ -62,11 +61,6 @@ private:
     void allocate_vertex();
 };
 typedef const Graph& GraphRef;
-
-typedef std::function<double(PointRef, PointRef)> Metric;
-typedef std::function<Graph(MapRef)> GraphBuilderFn;
-typedef std::function<Path(GraphRef, PointRef, PointRef)> GraphSearchFn;
-typedef std::function<Path(MapRef, PathRef)> InterpolatorFn;
 
 struct Workspace {
     Map map;

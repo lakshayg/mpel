@@ -11,10 +11,17 @@
 #define MPEL_PLANNER_H
 
 #include "types.hpp"
+#include <functional>
 
 namespace mpel {
 
 class Planner {
+
+    /// Typedefs for cleaner code
+    typedef std::function<double(PointRef, PointRef)> Metric;
+    typedef std::function<Graph(MapRef)> GraphBuilderFn;
+    typedef std::function<Path(GraphRef, PointRef, PointRef)> GraphSearchFn;
+    typedef std::function<Path(MapRef, PathRef)> InterpolatorFn;
 
 public:
     /// Paramters for planner configuration
