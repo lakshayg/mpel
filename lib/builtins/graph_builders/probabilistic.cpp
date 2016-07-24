@@ -36,19 +36,28 @@ namespace builtin {
                 }
             }
 
-            // if the graph is not connected
-            num = (map.rows * map.cols) / (50 * 50);
-            while (not g.connected()) {
-                for (size_t i = 0; i < num; ++i) {
-                    Point pt = random_free_space_point(map);
-                    for (auto& e : g.vertex_list()) {
-                        if (not is_collision(map, Segment(pt, e))) g.add_edge(pt, e, distance(pt, e));
+            // check if the graph is connected
+            if (not g.connected()) {
+                if (_n == 0) { // number of random configs was chosed automatically
+                    // add extra vertices in the graph till it is connected
+                    num = (map.rows * map.cols) / (50 * 50);
+                    while (not g.connected()) {
+                        for (size_t i = 0; i < num; ++i) {
+                            Point pt = random_free_space_point(map);
+                            for (auto& e : g.vertex_list()) {
+                                if (not is_collision(map, Segment(pt, e))) g.add_edge(pt, e, distance(pt, e));
+                            }
+                        }
                     }
+
+                    std::cout << "[voronoi_graph_builder] Extra nodes were added to make the graph connected"
+                              << " (" << g.num_vertices() << ")" << std::endl;
+
+                } else { // number of random configs was prescribed by the user
+                    std::cout << "[voronoi_graph_builder] The graph is not connected,"
+                              << " planner might not find a path even if it exists" << std::endl;
                 }
             }
-            if (_n > 0 and _n < g.num_vertices())
-                std::cout << "[voronoi_graph_builder] Extra nodes were added to make the graph connected ("
-                          << g.num_vertices() << ")" << std::endl;
 
             return g;
         }
