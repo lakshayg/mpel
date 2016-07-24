@@ -79,10 +79,10 @@ Path Planner::solve(ProblemDefinition pdef)
         }
     }
 
+    Path ret;
     if (in_segment == 0 or out_segment == 0) { // If the terminal points could not be successfully inserted
         std::cout << "[Planner::solve] Terminal points could not be inserted in the graph, "
                   << "check if the graph is sufficiently dense" << std::endl;
-        return Path();
     } else {
 
         auto t0 = high_resolution_clock::now();
@@ -91,11 +91,16 @@ Path Planner::solve(ProblemDefinition pdef)
         t_search = duration_cast<microseconds>(t1 - t0).count();
 
         t0 = high_resolution_clock::now();
-        Path ret = (p.size() > 0 ? _pc.interpolator(_ws.map, p) : p);
+        ret = (p.size() > 0 ? _pc.interpolator(_ws.map, p) : p);
         t1 = high_resolution_clock::now();
         t_interp = duration_cast<microseconds>(t1 - t0).count();
-        return ret;
-}
+    }
+
+    if (ret.size() == 0) {
+        std::cout << "[Planner::solve] No path found! Returning empty path" << std::endl;
+    }
+
+    return ret;
 }
 
 void Planner::show_stats() const
