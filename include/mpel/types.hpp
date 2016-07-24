@@ -3,6 +3,7 @@
 
 #include <opencv2/core/core.hpp>
 #include <unordered_map>
+#include <vector>
 
 namespace mpel {
 typedef cv::Point Point;
@@ -68,6 +69,7 @@ struct Workspace {
 
 struct ProblemDefinition {
     Point start;
+    std::vector<Point> via; // via points (unimplemented)
     Point goal;
 };
 }
