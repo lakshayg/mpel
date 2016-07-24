@@ -56,33 +56,46 @@ Path Planner::solve(ProblemDefinition pdef)
     Path p;
     Point in, out;
 
-    // find some vertices in graph closest to start and goal and connect them
+    // find some vertices in graph close to start and goal and connect them
     Graph tmp_g = _g;
     size_t nneigh = std::min((size_t)5, tmp_g.vertex_list().size());
     std::vector<Point> start_neigh
         = k_best(tmp_g.vertex_list().begin(), tmp_g.vertex_list().end(), nneigh, dcomp(pdef.start));
     std::vector<Point> goal_neigh
         = k_best(tmp_g.vertex_list().begin(), tmp_g.vertex_list().end(), nneigh, dcomp(pdef.goal));
+
+    size_t in_segment = 0, out_segment = 0; // check the number of edges which could be connected
     for (size_t i = 0; i < nneigh; ++i) {
         Segment s1 = Segment(pdef.start, start_neigh[i]);
-        if (not is_collision(_ws.map, s1))
+        if (not is_collision(_ws.map, s1)) {
             tmp_g.add_edge(pdef.start, start_neigh[i], distance(pdef.start, start_neigh[i]));
+            in_segment++;
+        }
 
         Segment s2 = Segment(pdef.goal, goal_neigh[i]);
-        if (not is_collision(_ws.map, s2)) tmp_g.add_edge(pdef.goal, goal_neigh[i], distance(pdef.goal, goal_neigh[i]));
+        if (not is_collision(_ws.map, s2)) {
+            tmp_g.add_edge(pdef.goal, goal_neigh[i], distance(pdef.goal, goal_neigh[i]));
+            out_segment++;
+        }
     }
 
-    auto t0 = high_resolution_clock::now();
-    p = _pc.graph_search(tmp_g, pdef.start, pdef.goal);
-    auto t1 = high_resolution_clock::now();
-    t_search = duration_cast<microseconds>(t1 - t0).count();
+    if (in_segment == 0 or out_segment == 0) { // If the terminal points could not be successfully inserted
+        std::cout << "[Planner::solve] Terminal points could not be inserted in the graph, "
+                  << "check if the graph is sufficiently dense" << std::endl;
+        return Path();
+    } else {
 
-    t0 = high_resolution_clock::now();
-    Path ret = (p.size() > 0 ? _pc.interpolator(_ws.map, p) : p);
-    t1 = high_resolution_clock::now();
-    t_interp = duration_cast<microseconds>(t1 - t0).count();
+        auto t0 = high_resolution_clock::now();
+        p = _pc.graph_search(tmp_g, pdef.start, pdef.goal);
+        auto t1 = high_resolution_clock::now();
+        t_search = duration_cast<microseconds>(t1 - t0).count();
 
-    return ret;
+        t0 = high_resolution_clock::now();
+        Path ret = (p.size() > 0 ? _pc.interpolator(_ws.map, p) : p);
+        t1 = high_resolution_clock::now();
+        t_interp = duration_cast<microseconds>(t1 - t0).count();
+        return ret;
+}
 }
 
 void Planner::show_stats() const
