@@ -80,32 +80,39 @@ Path Planner::solve(ProblemDefinition pdef)
     }
 
     auto t0 = high_resolution_clock::now();
-
-    // check if the terminal points could not be successfully inserted
+    // check if the terminal points were successfully inserted
     // it may happen that they could not be inserted because the graph
     // built by graph builder is not sufficiently dense or the user did
     // not use a graph builder at all due to which the graph is empty
-    if (in_segment == 0 or out_segment == 0) {
-        std::cout << "[Planner::solve] Terminal points could not be inserted in the graph, "
-                  << "check if the graph is sufficiently dense" << std::endl;
-        // we return a straight line joining start and goal hoping that the interpolator
-        // will be able to find a path. If it too cannot find a path then the returned
-        // path is a straight line between start and goal points.
-        p.push_back(pdef.start);
-        p.push_back(pdef.goal);
-    } else {
+    if (in_segment > 0 and out_segment > 0) {
         p = _pc.graph_search(tmp_g, pdef.start, pdef.goal);
     }
-
     auto t1 = high_resolution_clock::now();
     t_search = duration_cast<microseconds>(t1 - t0).count();
 
     t0 = high_resolution_clock::now();
+    if (p.size() == 0) { // if a path was not found
+        if (in_segment == 0 or out_segment == 0) {
+            std::cout << "[Planner::solve] Terminal points could not be inserted in the graph, "
+                      << "check if the graph is sufficiently dense" << std::endl;
+        } else {
+            // it may happen that the graph search did not find a path because
+            // the graph made by the graph builder is not connected.
+            std::cout << "[Planner::solve] The computed graph is not connected, "
+                      << "graph search did not find a path" << std::endl;
+        }
+        // we return a straight line joining start and goal hoping that the interpolator
+        // will be able to find a path. If no interpolator is used then the returned
+        // path is a straight line between start and goal points.
+        p.push_back(pdef.start);
+        p.push_back(pdef.goal);
+    }
     Path ret = _pc.interpolator(_ws.map, p);
     t1 = high_resolution_clock::now();
     t_interp = duration_cast<microseconds>(t1 - t0).count();
 
-    if (ret.back() != pdef.goal) { // check if path was completely interpolated
+    if (ret.back() != pdef.goal) {
+        // check if path was computed and completely interpolated
         std::cout << "[Planner::solve] Could not find a path!" << std::endl;
     }
 
