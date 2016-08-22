@@ -41,7 +41,9 @@ namespace builtin {
                 if (_n == 0) { // number of random configs was chosed automatically
                     // add extra vertices in the graph till it is connected
                     num = (map.rows * map.cols) / (50 * 50);
-                    while (not g.connected()) {
+                    int num_tries = 5;
+                    while (not g.connected() and num_tries > 0) {
+                        num_tries--;
                         for (size_t i = 0; i < num; ++i) {
                             Point pt = random_free_space_point(map);
                             for (auto& e : g.vertex_list()) {
@@ -50,8 +52,13 @@ namespace builtin {
                         }
                     }
 
-                    std::cout << "[voronoi_graph_builder] Extra nodes were added to make the graph connected"
-                              << " (" << g.num_vertices() << ")" << std::endl;
+                    if (num_tries > 0) {
+                        std::cout << "[voronoi_graph_builder] Extra nodes were added to make the graph connected"
+                                  << " (" << g.num_vertices() << ")" << std::endl;
+                    } else {
+                        std::cout << "[voronoi_graph_builder] Couldn't make the graph connected "
+                                  << "by adding extra nodes" << std::endl;
+                    }
 
                 } else { // number of random configs was prescribed by the user
                     std::cout << "[voronoi_graph_builder] The graph is not connected,"
