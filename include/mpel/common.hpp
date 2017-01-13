@@ -18,6 +18,8 @@ struct UnimplementedException : public std::exception {
 /// Helper function to load a map stored as an image
 Map load_map_from_image(std::string filename);
 
+/// Compute squared distance between two points
+double sqr_distance(PointRef a, PointRef b);
 /// Compute distance between two points
 double distance(PointRef a, PointRef b);
 /// Compute perpendicular distance between a segment and a point

@@ -17,11 +17,16 @@ Map load_map_from_image(std::string filename)
     return im;
 }
 
-double distance(PointRef a, PointRef b)
+double sqr_distance(PointRef a, PointRef b)
 {
     double dx = a.x - b.x;
     double dy = a.y - b.y;
-    return sqrt(dx * dx + dy * dy);
+    return dx * dx + dy * dy;
+}
+
+double distance(PointRef a, PointRef b)
+{
+    return sqrt(sqr_distance(a, b));
 }
 
 double distance(PointRef p, SegmentRef s)
