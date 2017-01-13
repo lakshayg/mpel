@@ -53,15 +53,15 @@ namespace builtin {
                     }
 
                     if (num_tries > 0) {
-                        std::cout << "[voronoi_graph_builder] Extra nodes were added to make the graph connected"
+                        std::cout << "[probabilistic_graph_builder] Extra nodes were added to make the graph connected"
                                   << " (" << g.num_vertices() << ")" << std::endl;
                     } else {
-                        std::cout << "[voronoi_graph_builder] Couldn't make the graph connected "
+                        std::cout << "[probabilistic_graph_builder] Couldn't make the graph connected "
                                   << "by adding extra nodes" << std::endl;
                     }
 
                 } else { // number of random configs was prescribed by the user
-                    std::cout << "[voronoi_graph_builder] The graph is not connected,"
+                    std::cout << "[probabilistic_graph_builder] The graph is not connected,"
                               << " planner might not find a path even if it exists" << std::endl;
                 }
             }
